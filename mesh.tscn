@@ -1,11 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.729412, 0.862745, 0.345098, 1 )
 
 [sub_resource type="SphereMesh" id=1]
+material = SubResource( 8 )
 radius = 0.5
 height = 1.0
 
+[sub_resource type="SpatialMaterial" id=9]
+albedo_color = Color( 0.67451, 0.67451, 0.67451, 1 )
+
 [sub_resource type="CylinderMesh" id=2]
-top_radius = 0.5
+material = SubResource( 9 )
+top_radius = 0.25
 bottom_radius = 0.5
 height = 1.5
 

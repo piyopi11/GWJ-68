@@ -1,19 +1,20 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://npc/npc.gd" type="Script" id=1]
 
-[sub_resource type="SphereMesh" id=1]
+[sub_resource type="SpatialMaterial" id=8]
+albedo_color = Color( 0.729412, 0.862745, 0.345098, 1 )
+
+[sub_resource type="SphereMesh" id=10]
+material = SubResource( 8 )
 radius = 0.5
 height = 1.0
 
-[sub_resource type="SpatialMaterial" id=3]
-albedo_color = Color( 0.945098, 0.933333, 0.278431, 1 )
-
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 0.67451, 0.67451, 0.67451, 1 )
 
-[sub_resource type="CylinderMesh" id=2]
-material = SubResource( 8 )
+[sub_resource type="CylinderMesh" id=11]
+material = SubResource( 9 )
 top_radius = 0.25
 bottom_radius = 0.5
 height = 1.5
@@ -28,14 +29,21 @@ length = 0.6
 tracks/0/type = "transform"
 tracks/0/path = NodePath(".")
 tracks/0/interp = 2
-tracks/0/loop_wrap = false
+tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.3, 1, 0, 0.22187, 0, 0, 0, 0, 1, 1, 1, 1, 0.6, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("mesh")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray(  )
 
 [sub_resource type="Animation" id=7]
 resource_name = "walking"
-length = 0.4
+length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("../mesh:transform")
 tracks/0/interp = 1
@@ -43,33 +51,35 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4 ),
+"times": PoolRealArray( 0, 0.3, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644951, 0 ), Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0 ), Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.645, 0 ) ]
+"values": [ Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644951, 0 ), Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 ), Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.645, 0 ) ]
 }
 
-[sub_resource type="CylinderShape" id=9]
+[sub_resource type="CylinderShape" id=12]
 height = 3.0
 radius = 2.0
 
-[node name="pawn" type="KinematicBody" groups=["player"]]
+[node name="npc_b" type="KinematicBody" groups=["npc"]]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource( 1 )
+type = "B"
 
 [node name="mesh" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644951, 0 )
 
 [node name="head" type="MeshInstance" parent="mesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37308, 0 )
-mesh = SubResource( 1 )
-material/0 = SubResource( 3 )
+mesh = SubResource( 10 )
 
 [node name="body" type="MeshInstance" parent="mesh"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.124282, 0 )
-mesh = SubResource( 2 )
+mesh = SubResource( 11 )
 
 [node name="collision" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 1.18312, 0 )
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 1.23241, 0 )
 shape = SubResource( 5 )
 
 [node name="animation" type="AnimationPlayer" parent="."]
@@ -78,24 +88,8 @@ anims/walking = SubResource( 6 )
 [node name="animation" type="AnimationPlayer" parent="animation"]
 anims/walking = SubResource( 7 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.368579, 0.929596, 0, -0.929596, 0.368579, 0, 21.5197, 9.04573 )
-current = true
-fov = 75.0
-size = 35.0
-
-[node name="RayCast" type="RayCast" parent="Camera"]
-transform = Transform( 1, 0, 0, 0, -0.0413699, -0.999144, 0, 0.999144, -0.0413699, 0, 0, 9.53674e-06 )
-enabled = true
-cast_to = Vector3( 0, -25, 0 )
-
 [node name="detection" type="Area" parent="."]
-collision_layer = 2
-collision_mask = 2
 
 [node name="collision" type="CollisionShape" parent="detection"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51548, 0 )
-shape = SubResource( 9 )
-
-[connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
-[connection signal="body_exited" from="detection" to="." method="_on_detection_body_exited"]
+shape = SubResource( 12 )
