@@ -7,6 +7,7 @@ var mock_data = [
 	{"type": "cube", "position": [0.0, 3.0, 0.0]}
 ]
 
+var type = "statue"
 export (String) var id = "statue1"
 export (int) var idx = 0
 var forged = false
@@ -48,8 +49,8 @@ func swap_data (key) :
 	var data = GameManager.get_inventory(key).data
 	GameManager.get_statue(idx).data.data = data
 	GameManager.get_statue(idx).forged = true
-	LevelManager.art_taken = idx
-	LevelManager.art_name = GameManager.get_statue(idx).data.name
+	LevelManager.art_taken.append(idx)
+	LevelManager.art_name.append( GameManager.get_statue(idx).data.name )
 	LevelManager.calculate_statue_likeness(data)
 	reset_statue()
 	setup_statue()

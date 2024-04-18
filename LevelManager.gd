@@ -7,8 +7,8 @@ var alert_time = 0
 var alert_level = 0
 var time_node = null
 
-var art_name = ""
-var art_taken = -1
+var art_name = []
+var art_taken = []
 
 var tool_used = 0
 var total_score = 0
@@ -28,8 +28,8 @@ func setup_level () :
 	time = 180.0
 	alert_time = 0
 	tool_used = 0
-	art_name = ""
-	art_taken = -1
+	art_name = []
+	art_taken = []
 	to_compare = []
 	alert_level = GameManager.threat_level
 
@@ -47,22 +47,21 @@ func update_time () :
 	time_node.text = "{0}:{1}".format([m if m >= 10 else "0"+str(m), s if s >= 10 else "0"+str(s)])
 
 func calculate_score () :
-	if art_taken == -1 :
-		total_score = 0
-	else :
-		var b = 100 if art_taken != -1 else 0
-		b += (5 * int(time))
-		b -= 50 if tool_used >= 10 else 0
-		b -= (20 * int(alert_time))
-		b = max(b, 0)
-		total_score = b
+	
+	var b = 100 * art_taken.size()
+	b += (5 * int(time))
+	b -= 50 if tool_used >= 10 else 0
+	b -= (20 * int(alert_time))
+	b = max(b, 0)
+	total_score = b
+	
 	stage_rank = "S" if total_score >= 1000 else "A" if total_score >= 850 else "B" if total_score >= 600 else "C" if total_score >= 300 else "D" if total_score > 0 else "F"
 
 func calculate_painting_likeness (data) :
 	likeness = 0.0
 	
 	var s1 : Array = data
-	var s2 : Array = Artwork.paintings[GameManager.paintings[int(art_taken)].key].colors
+	var s2 : Array = Artwork.paintings[GameManager.paintings[int(art_taken.back())].key].colors
 	
 #	var matrix_a = []
 #	var matrix_b = []
@@ -94,7 +93,7 @@ func calculate_statue_likeness (data) :
 	likeness = 0.0
 	
 	var s1 : Array = data
-	var s2 : Array = Artwork.statues[GameManager.statues[int(art_taken)].key].data
+	var s2 : Array = Artwork.statues[GameManager.statues[int(art_taken.back())].key].data
 	
 	var margin = 1.0
 	
@@ -114,6 +113,4 @@ func calculate_statue_likeness (data) :
 			if t_check && p_check :
 				w += 1.0
 				break
-	print(w)
 	likeness = (w / float(s1.size())) * margin
-	print(likeness)

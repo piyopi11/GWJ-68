@@ -3,6 +3,7 @@ extends StaticBody
 export (String) var id = "painting1"
 export (int) var idx = 0
 
+var type = "painting"
 var forged = false
 
 func _ready():
@@ -39,8 +40,8 @@ func swap_data (key) :
 	var data = GameManager.get_inventory(key).data
 	GameManager.get_painting(idx).data.colors = data
 	GameManager.get_painting(idx).forged = true
-	LevelManager.art_taken = idx
-	LevelManager.art_name = GameManager.get_painting(idx).data.name
+	LevelManager.art_taken.append(idx)
+	LevelManager.art_name.append(GameManager.get_painting(idx).data.name)
 	LevelManager.calculate_painting_likeness(data)
 	setup_painting()
 	GameManager.delete_inventory(key)

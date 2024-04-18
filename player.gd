@@ -25,6 +25,10 @@ var mode = "visit"
 var result_screen = false
 var result_complete = false
 
+const EMPTY = preload("res://ui/ui_frame.png")
+const ART = preload("res://ui/forge_painting.png")
+const STATUE = preload("res://ui/forge_statue.png")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -40,6 +44,11 @@ func setup_ui() :
 		$ui/back_button.visible = false
 		$ui/tool_box.visible = true
 		$ui/result_screen.visible = false
+		$ui/current_frame/name.text = GameManager.get_inventory(GameManager.bag[0]).name
+		if GameManager.get_inventory(GameManager.bag[0]).type == "painting" :
+			$ui/current_frame.texture = ART
+		elif  GameManager.get_inventory(GameManager.bag[0]).type == "statue" :
+			$ui/current_frame.texture = STATUE
 
 func _process(_delta) :
 	if result_screen == false :
@@ -52,8 +61,17 @@ func perform_interaction (delta) :
 	interaction_progress = min(interaction_progress + (interaction_step * delta), 100.0)
 	$ui/interaction_progress.value = interaction_progress
 	if interaction_progress >= 100.0 :
-		can_interact = false
-		swiping_item.swap_data(GameManager.art)
+		swiping_item.swap_data(GameManager.bag.pop_front())
+		can_interact = GameManager.bag.size() > 0
+		if can_interact :
+			$ui/current_frame/name.text = GameManager.get_inventory(GameManager.bag[0]).name
+			if GameManager.get_inventory(GameManager.bag[0]).type == "painting" :
+				$ui/current_frame.texture = ART
+			elif  GameManager.get_inventory(GameManager.bag[0]).type == "statue" :
+				$ui/current_frame.texture = STATUE
+		else :
+			$ui/current_frame/name.text = "Empty"
+			$ui/current_frame.texture = EMPTY
 		$ui/interaction_progress.visible = false
 		interacting = false
 
@@ -136,23 +154,24 @@ func check_input() :
 			if Input.is_action_just_pressed("ui_tool_1") && mode == "heist" :
 				random_teleport()
 				
-		if Input.is_action_pressed("ui_interact") && mode == "heist" && interact_node != null :
+		if Input.is_action_pressed("ui_interact") && mode == "heist" && interact_node != null:
 			if interact_node.is_in_group("exit") :
 				end_stage()
 				return false
-			elif interact_node.is_in_group("swipable") && can_interact == true :
-				interacting = true
-				if swiping_item != interact_node :
-					interaction_progress = 0.0
-					swiping_item = interact_node
-				if interact_node.is_in_group("swipable") :
-					$ui/swipe_popup.visible = false
-				elif interact_node.is_in_group("exit") :
-					$ui/door_popup.visible = false
-				$ui/interaction_progress.visible = true
+			elif interact_node.is_in_group("swipable") && can_interact == true && interact_node.forged == false :
+				if interact_node.type == GameManager.get_inventory(GameManager.bag[0]).type :
+					interacting = true
+					if swiping_item != interact_node :
+						interaction_progress = 0.0
+						swiping_item = interact_node
+					if interact_node.is_in_group("swipable") :
+						$ui/swipe_popup.visible = false
+					elif interact_node.is_in_group("exit") :
+						$ui/door_popup.visible = false
+					$ui/interaction_progress.visible = true
 		elif Input.is_action_just_released("ui_interact") && interacting == true :
 			$ui/interaction_progress.visible = false
-			if interact_node.is_in_group("swipable") :
+			if interact_node.is_in_group("swipable") && interact_node.forged == false :
 				$ui/swipe_popup.visible = true
 			elif interact_node.is_in_group("exit") :
 				$ui/door_popup.visible = true
@@ -218,7 +237,7 @@ func _on_detection_body_entered(body):
 		if body != interact_node :
 			interact_node = body
 			if mode == "heist" :
-				if body.is_in_group("swipable") && can_interact == true :
+				if body.is_in_group("swipable") && can_interact == true && body.forged == false :
 					$ui/swipe_popup.visible = true
 				elif body.is_in_group("exit") :
 					$ui/door_popup.visible = true
@@ -264,10 +283,11 @@ func end_stage () :
 	$ui/result_screen/alert_row/value.text = str(LevelManager.alert_time)
 	$ui/result_screen/tool_row/value.text = str(LevelManager.tool_used)
 	$ui/result_screen/score_row/value.text = str(LevelManager.total_score)
-	$ui/result_screen/art_row/value.text = LevelManager.art_name
+	for n in LevelManager.art_name :
+		$ui/result_screen/art_row/value.text += "[" +n+"] "
 	$ui/result_screen/forge_row/value.text = "{0}%".format([int(LevelManager.likeness*100)])
 	$ui/result_screen/rank.text = LevelManager.stage_rank
-	if LevelManager.art_taken == -1 :
+	if LevelManager.art_taken.size() == 0 :
 		$ui/result_screen/title.text = "Escaped"
 	$ui/result_screen.visible = true
 	yield(get_tree(), "idle_frame")

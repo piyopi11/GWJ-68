@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://home_menu.gd" type="Script" id=1]
 [ext_resource path="res://dotted_borders.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://ui/cancel.png" type="Texture" id=10]
 [ext_resource path="res://ui/delete.png" type="Texture" id=11]
 [ext_resource path="res://prototype_texture.png" type="Texture" id=12]
+[ext_resource path="res://ui/confirm.png" type="Texture" id=13]
 
 [sub_resource type="SpatialMaterial" id=23]
 albedo_texture = ExtResource( 12 )
@@ -145,6 +146,38 @@ region_rect = Rect2( 0, 0, 300, 300 )
 
 [sub_resource type="StyleBoxTexture" id=31]
 texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="DynamicFont" id=32]
+size = 72
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=33]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxTexture" id=34]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=35]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=36]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=37]
+texture = ExtResource( 13 )
 region_rect = Rect2( 0, 0, 300, 300 )
 
 [node name="root" type="Node2D"]
@@ -498,6 +531,118 @@ custom_styles/pressed = SubResource( 29 )
 custom_styles/focus = SubResource( 30 )
 custom_styles/normal = SubResource( 31 )
 
+[node name="heist_preparation" type="Control" parent="."]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background2" type="ColorRect" parent="heist_preparation"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0.701961, 0.682353, 0.611765, 1 )
+
+[node name="frame" type="NinePatchRect" parent="heist_preparation"]
+margin_right = 800.0
+margin_bottom = 600.0
+texture = ExtResource( 2 )
+patch_margin_left = 50
+patch_margin_top = 30
+patch_margin_right = 50
+patch_margin_bottom = 30
+
+[node name="title" type="Label" parent="heist_preparation"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -262.5
+margin_top = 25.0
+margin_right = 262.5
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 32 )
+text = "Heist Preparation"
+
+[node name="help" type="Label" parent="heist_preparation"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -103.0
+margin_right = 360.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 33 )
+text = "Click on an artwork to add it to your bag, click on it again to remove it from your bag"
+align = 1
+autowrap = true
+
+[node name="artwork" type="Control" parent="heist_preparation"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -360.0
+margin_top = 83.0
+margin_right = 360.0
+margin_bottom = 533.0
+
+[node name="bag_frame" type="NinePatchRect" parent="heist_preparation/artwork"]
+margin_left = 450.0
+margin_right = 750.0
+margin_bottom = 450.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="content" type="ScrollContainer" parent="heist_preparation/artwork/bag_frame"]
+margin_left = 59.0
+margin_top = 62.0
+margin_right = 239.0
+margin_bottom = 382.0
+
+[node name="rows" type="VBoxContainer" parent="heist_preparation/artwork/bag_frame/content"]
+margin_right = 180.0
+margin_bottom = 320.0
+rect_min_size = Vector2( 180, 320 )
+
+[node name="inventory_frame" type="NinePatchRect" parent="heist_preparation/artwork"]
+margin_right = 500.0
+margin_bottom = 450.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="content" type="ScrollContainer" parent="heist_preparation/artwork/inventory_frame"]
+margin_left = 48.0
+margin_top = 61.0
+margin_right = 448.0
+margin_bottom = 381.0
+
+[node name="grid" type="GridContainer" parent="heist_preparation/artwork/inventory_frame/content"]
+columns = 2
+
+[node name="heist_cancel" type="Button" parent="heist_preparation"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 18 )
+custom_styles/focus = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+
+[node name="heist_ok" type="Button" parent="heist_preparation"]
+margin_left = 696.0
+margin_top = 8.0
+margin_right = 796.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 34 )
+custom_styles/pressed = SubResource( 35 )
+custom_styles/focus = SubResource( 36 )
+custom_styles/normal = SubResource( 37 )
+
 [connection signal="pressed" from="root_control/activity_space/scout_button" to="." method="_on_scout_button_pressed"]
 [connection signal="pressed" from="root_control/activity_space/paint_button" to="." method="_on_paint_button_pressed"]
 [connection signal="pressed" from="root_control/activity_space/statue_button" to="." method="_on_statue_button_pressed"]
@@ -508,3 +653,5 @@ custom_styles/normal = SubResource( 31 )
 [connection signal="pressed" from="inventory_control/statue_detail/trash_3d" to="." method="_on_trash_3d_pressed"]
 [connection signal="pressed" from="inventory_control/paint_detail/cancel_2d" to="." method="_on_cancel_2d_pressed"]
 [connection signal="pressed" from="inventory_control/paint_detail/trash_2d" to="." method="_on_trash_2d_pressed"]
+[connection signal="pressed" from="heist_preparation/heist_cancel" to="." method="_on_heist_cancel_pressed"]
+[connection signal="pressed" from="heist_preparation/heist_ok" to="." method="_on_heist_ok_pressed"]

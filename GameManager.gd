@@ -7,6 +7,8 @@ var total_art = 0
 
 var tools = []
 var art = "0"
+var bag = []
+var art_limit = 1
 
 #gallery related
 var paintings = []
@@ -21,10 +23,39 @@ const demand_refresh_time = 5
 #level related
 var threat_level = 0.0
 
+#career related
+var game_start = false
+var total_time = 0.0
+
 func _ready () :
+	new_game()
+
+func _process (delta) :
+	if game_start :
+		total_time += delta
+
+func quit_game () :
+	game_start = false
+
+func new_game () :
+	game_start = true
 	setup_data()
 
 func setup_data () :
+	score = 0
+	inventory = []
+	total_art = 0
+	tools = []
+	art = "0"
+	bag = []
+	art_limit = 1
+	paintings = []
+	statues = []
+	security_level = 1
+	day = 0
+	in_demand = []
+	threat_level = 0.0
+
 	for k in Artwork.paintings.keys() :
 		var o = {"data": Artwork.paintings[k].duplicate(true), "sentiment": 0, "forged": false, "key": k}
 		paintings.append(o)

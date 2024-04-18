@@ -18,7 +18,6 @@ func reset_inventory () :
 		c.queue_free()
 
 func setup_inventory () :
-	var idx = 0
 	for i in GameManager.inventory :
 		var o = INVENTORYBOX.instance()
 		o._name = i.name
@@ -28,7 +27,17 @@ func setup_inventory () :
 		o.connect("selected", self, "_on_inventory_box_pressed")
 		inventories.append(o)
 		$inventory_control/inventory_box/scroll/content.add_child(o)
-		idx += 1
+		var a = INVENTORYBOX.instance()
+		a._name = i.name
+		a._type = i.type
+		a._key = i.key
+		a.setup_box()
+		a.connect("selected", self, "_on_prepare_inventory_box_pressed", [a])
+		$heist_preparation/artwork/inventory_frame/content/grid.add_child(a)
+
+func refresh_heist_inventory () :
+	for c in $heist_preparation/artwork/inventory_frame/content/grid.get_children() :
+		c.deselect_item()
 
 func setup_in_demand() :
 	for a in GameManager.in_demand :
@@ -52,7 +61,9 @@ func _on_statue_button_pressed():
 	SceneManager.change_scene("res://make_sculpture.tscn")
 
 func _on_infiltrate_button_pressed():
-	SceneManager.change_scene("res://art_gallery_night.tscn")
+#	SceneManager.change_scene("res://art_gallery_night.tscn")
+	$root_control.visible = false
+	$heist_preparation.visible = true
 
 func _on_cancel_pressed():
 	$inventory_control.visible = false
@@ -61,6 +72,23 @@ func _on_cancel_pressed():
 func _on_inventory_button_pressed():
 	$root_control.visible = false
 	$inventory_control.visible = true
+
+func _on_prepare_inventory_box_pressed (key, node) : 
+	node.select_item()
+	refresh_bag()
+
+func refresh_bag () :
+	for c in $heist_preparation/artwork/bag_frame/content/rows.get_children() :
+		c.queue_free()
+	for k in GameManager.bag :
+		var i = GameManager.get_inventory(k)
+		var o = INVENTORYBOX.instance()
+		o._name = i.name
+		o._type = i.type
+		o._key = i.key
+		o.setup_box()
+#		o.connect("selected", self, "_on_inventory_box_pressed")
+		$heist_preparation/artwork/bag_frame/content/rows.add_child(o)
 
 func _on_inventory_box_pressed (key) :
 	selected_key = key
@@ -125,3 +153,15 @@ func _on_trash_2d_pressed():
 	reset_inventory()
 	setup_inventory()
 	_on_cancel_2d_pressed()
+
+func _on_heist_cancel_pressed():
+	GameManager.tools = []
+	GameManager.bag = []
+	refresh_heist_inventory()
+	refresh_bag()
+	$heist_preparation.visible = false
+	$root_control.visible = true
+
+func _on_heist_ok_pressed() :
+	if GameManager.bag.size() > 0 :
+		SceneManager.change_scene("res://art_gallery_night.tscn")

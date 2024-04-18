@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://ui/ui_frame.png" type="Texture" id=2]
@@ -103,6 +103,14 @@ height = 16
 size = 64
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=28]
+size = 24
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=20]
@@ -405,7 +413,37 @@ custom_fonts/font = SubResource( 19 )
 text = "00:00"
 align = 1
 
+[node name="current_frame" type="NinePatchRect" parent="ui"]
+margin_left = 648.0
+margin_top = 448.0
+margin_right = 798.0
+margin_bottom = 598.0
+texture = ExtResource( 2 )
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="title" type="Label" parent="ui/current_frame"]
+margin_top = -8.0
+margin_right = 150.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 28 )
+text = "Current"
+align = 1
+
+[node name="name" type="Label" parent="ui/current_frame"]
+margin_top = 96.0
+margin_right = 150.0
+margin_bottom = 125.0
+rect_min_size = Vector2( 150, 0 )
+custom_fonts/font = SubResource( 28 )
+text = "Art Name"
+align = 1
+autowrap = true
+
 [node name="result_screen" type="Control" parent="ui"]
+visible = false
 margin_right = 800.0
 margin_bottom = 600.0
 
@@ -545,7 +583,6 @@ margin_right = 314.0
 margin_bottom = 105.0
 rect_min_size = Vector2( 60, 90 )
 custom_fonts/font = SubResource( 22 )
-text = "0"
 align = 2
 
 [node name="forge_row" type="HBoxContainer" parent="ui/result_screen"]
