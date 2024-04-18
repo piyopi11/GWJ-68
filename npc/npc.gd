@@ -11,6 +11,8 @@ const RED_COLOR = Color("#ff7979")
 var parent_path : PathFollow = null
 var next_movement = Vector3(0.0, 0.0, 0.0)
 
+var chatter = "Simply astounding"
+
 func _ready():
 	setup_npc()
 	if movement == "path" :

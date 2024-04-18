@@ -1,0 +1,208 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://prototype_texture.png" type="Texture" id=1]
+
+[sub_resource type="SpatialMaterial" id=45]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=46]
+material = SubResource( 45 )
+size = Vector3( 10, 20, 10 )
+
+[sub_resource type="BoxShape" id=47]
+extents = Vector3( 5, 20, 5 )
+
+[sub_resource type="SpatialMaterial" id=48]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=49]
+material = SubResource( 48 )
+size = Vector3( 10, 15, 10 )
+
+[sub_resource type="SpatialMaterial" id=50]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=51]
+material = SubResource( 50 )
+size = Vector3( 10, 20, 10 )
+
+[sub_resource type="SpatialMaterial" id=52]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=53]
+material = SubResource( 52 )
+size = Vector3( 10, 18, 10 )
+
+[sub_resource type="SpatialMaterial" id=54]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=55]
+material = SubResource( 54 )
+size = Vector3( 10, 20, 10 )
+
+[sub_resource type="SpatialMaterial" id=56]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=57]
+material = SubResource( 56 )
+size = Vector3( 10, 15, 10 )
+
+[sub_resource type="SpatialMaterial" id=58]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=59]
+material = SubResource( 58 )
+size = Vector3( 10, 18, 10 )
+
+[sub_resource type="SpatialMaterial" id=60]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=61]
+material = SubResource( 60 )
+size = Vector3( 10, 18, 10 )
+
+[sub_resource type="SpatialMaterial" id=62]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=63]
+material = SubResource( 62 )
+size = Vector3( 10, 18, 10 )
+
+[sub_resource type="SpatialMaterial" id=64]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 3, 3, 3 )
+proximity_fade_enable = true
+proximity_fade_distance = 1.0
+
+[sub_resource type="CubeMesh" id=65]
+material = SubResource( 64 )
+size = Vector3( 10, 12, 10 )
+
+[node name="border_top" type="Spatial"]
+
+[node name="building3" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, 5 )
+
+[node name="mesh" type="MeshInstance" parent="building3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+mesh = SubResource( 46 )
+
+[node name="collision" type="CollisionShape" parent="building3"]
+shape = SubResource( 47 )
+
+[node name="building4" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, 15 )
+
+[node name="mesh" type="MeshInstance" parent="building4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0 )
+mesh = SubResource( 49 )
+
+[node name="collision" type="CollisionShape" parent="building4"]
+shape = SubResource( 47 )
+
+[node name="building9" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, 25 )
+
+[node name="mesh" type="MeshInstance" parent="building9"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+mesh = SubResource( 51 )
+
+[node name="collision" type="CollisionShape" parent="building9"]
+shape = SubResource( 47 )
+
+[node name="building10" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, 35 )
+
+[node name="mesh" type="MeshInstance" parent="building10"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
+mesh = SubResource( 53 )
+
+[node name="collision" type="CollisionShape" parent="building10"]
+shape = SubResource( 47 )
+
+[node name="building11" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, 45 )
+
+[node name="mesh" type="MeshInstance" parent="building11"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0 )
+mesh = SubResource( 55 )
+
+[node name="collision" type="CollisionShape" parent="building11"]
+shape = SubResource( 47 )
+
+[node name="building5" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, -5 )
+
+[node name="mesh" type="MeshInstance" parent="building5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0 )
+mesh = SubResource( 57 )
+
+[node name="collision" type="CollisionShape" parent="building5"]
+shape = SubResource( 47 )
+
+[node name="building6" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, -15 )
+
+[node name="mesh" type="MeshInstance" parent="building6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
+mesh = SubResource( 59 )
+
+[node name="collision" type="CollisionShape" parent="building6"]
+shape = SubResource( 47 )
+
+[node name="building7" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, -25 )
+
+[node name="mesh" type="MeshInstance" parent="building7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
+mesh = SubResource( 61 )
+
+[node name="collision" type="CollisionShape" parent="building7"]
+shape = SubResource( 47 )
+
+[node name="building12" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, -45 )
+
+[node name="mesh" type="MeshInstance" parent="building12"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9, 0 )
+mesh = SubResource( 63 )
+
+[node name="collision" type="CollisionShape" parent="building12"]
+shape = SubResource( 47 )
+
+[node name="building8" type="StaticBody" parent="." groups=["cullable"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -45.262, 0, -35 )
+
+[node name="mesh" type="MeshInstance" parent="building8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0 )
+mesh = SubResource( 65 )
+
+[node name="collision" type="CollisionShape" parent="building8"]
+shape = SubResource( 47 )

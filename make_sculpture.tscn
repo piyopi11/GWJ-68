@@ -1,0 +1,574 @@
+[gd_scene load_steps=65 format=2]
+
+[ext_resource path="res://prototype_texture.png" type="Texture" id=1]
+[ext_resource path="res://sculpture_scene.gd" type="Script" id=2]
+[ext_resource path="res://ui/add_cube.png" type="Texture" id=3]
+[ext_resource path="res://ui/add_prism.png" type="Texture" id=4]
+[ext_resource path="res://ui/add_sphere.png" type="Texture" id=5]
+[ext_resource path="res://ui/rotate_left.png" type="Texture" id=6]
+[ext_resource path="res://ui/rotate_right.png" type="Texture" id=7]
+[ext_resource path="res://ui/move_forward.png" type="Texture" id=8]
+[ext_resource path="res://ui/move_backward.png" type="Texture" id=9]
+[ext_resource path="res://ui/move_left.png" type="Texture" id=10]
+[ext_resource path="res://ui/move_up.png" type="Texture" id=11]
+[ext_resource path="res://ui/move_right.png" type="Texture" id=12]
+[ext_resource path="res://ui/move_down.png" type="Texture" id=13]
+[ext_resource path="res://ui/confirm.png" type="Texture" id=14]
+[ext_resource path="res://ui/cancel.png" type="Texture" id=15]
+[ext_resource path="res://ui/ui_frame.png" type="Texture" id=16]
+[ext_resource path="res://dotted_borders.png" type="Texture" id=17]
+[ext_resource path="res://GochiHand-Regular.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://ui/delete.png" type="Texture" id=19]
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_texture = ExtResource( 1 )
+uv1_scale = Vector3( 2, 2, 2 )
+
+[sub_resource type="PlaneMesh" id=24]
+material = SubResource( 23 )
+size = Vector2( 8, 8 )
+
+[sub_resource type="Environment" id=25]
+background_mode = 1
+background_color = Color( 0.701961, 0.682353, 0.611765, 1 )
+background_energy = 0.2
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=16]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=26]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=19]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 12 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=21]
+texture = ExtResource( 12 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=22]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=46]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=47]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=48]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=13]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=43]
+texture = ExtResource( 19 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=44]
+texture = ExtResource( 19 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=29]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=30]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=31]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=32]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="DynamicFont" id=33]
+size = 48
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 18 )
+
+[sub_resource type="DynamicFont" id=34]
+size = 32
+font_data = ExtResource( 18 )
+
+[sub_resource type="StyleBoxEmpty" id=35]
+
+[sub_resource type="StyleBoxEmpty" id=36]
+
+[sub_resource type="StyleBoxTexture" id=37]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=38]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=39]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=40]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=41]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=42]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="DynamicFont" id=45]
+size = 72
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 18 )
+
+[node name="root" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="base" type="MeshInstance" parent="."]
+mesh = SubResource( 24 )
+
+[node name="environment" type="WorldEnvironment" parent="."]
+environment = SubResource( 25 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 7 )
+
+[node name="mesh_group" type="Spatial" parent="."]
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="root" type="Control" parent="ui"]
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="frame2" type="NinePatchRect" parent="ui/root"]
+margin_right = 800.0
+margin_bottom = 600.0
+texture = ExtResource( 17 )
+patch_margin_left = 50
+patch_margin_top = 30
+patch_margin_right = 50
+patch_margin_bottom = 30
+
+[node name="mesh_tool" type="HBoxContainer" parent="ui/root"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -154.0
+margin_top = -100.0
+margin_right = 154.0
+
+[node name="add_cube" type="Button" parent="ui/root/mesh_tool"]
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+
+[node name="add_cone" type="Button" parent="ui/root/mesh_tool"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/focus = SubResource( 7 )
+custom_styles/normal = SubResource( 7 )
+
+[node name="add_sphere" type="Button" parent="ui/root/mesh_tool"]
+margin_left = 208.0
+margin_right = 308.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/normal = SubResource( 9 )
+
+[node name="move_tool" type="Control" parent="ui/root"]
+margin_left = 648.0
+margin_top = 336.0
+margin_right = 688.0
+margin_bottom = 376.0
+
+[node name="move_up" type="Button" parent="ui/root/move_tool"]
+margin_top = 24.0
+margin_right = 75.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 75, 75 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 14 )
+custom_styles/focus = SubResource( 15 )
+custom_styles/normal = SubResource( 15 )
+
+[node name="move_down" type="Button" parent="ui/root/move_tool"]
+margin_top = 104.0
+margin_right = 75.0
+margin_bottom = 179.0
+rect_min_size = Vector2( 75, 75 )
+custom_styles/hover = SubResource( 16 )
+custom_styles/pressed = SubResource( 16 )
+custom_styles/focus = SubResource( 17 )
+custom_styles/normal = SubResource( 17 )
+
+[node name="move_left" type="Button" parent="ui/root/move_tool"]
+margin_left = -80.0
+margin_top = 64.0
+margin_right = -5.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 75, 75 )
+custom_styles/hover = SubResource( 26 )
+custom_styles/pressed = SubResource( 18 )
+custom_styles/focus = SubResource( 19 )
+custom_styles/normal = SubResource( 19 )
+
+[node name="move_right" type="Button" parent="ui/root/move_tool"]
+margin_left = 80.0
+margin_top = 64.0
+margin_right = 155.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 75, 75 )
+custom_styles/hover = SubResource( 20 )
+custom_styles/pressed = SubResource( 20 )
+custom_styles/focus = SubResource( 21 )
+custom_styles/normal = SubResource( 21 )
+
+[node name="move_up2" type="Button" parent="ui/root/move_tool"]
+margin_left = -40.0
+margin_top = 176.0
+margin_right = 35.0
+margin_bottom = 251.0
+rect_min_size = Vector2( 75, 75 )
+custom_styles/hover = SubResource( 22 )
+custom_styles/pressed = SubResource( 22 )
+custom_styles/focus = SubResource( 46 )
+custom_styles/normal = SubResource( 46 )
+
+[node name="move_down2" type="Button" parent="ui/root/move_tool"]
+margin_left = 40.0
+margin_top = 176.0
+margin_right = 115.0
+margin_bottom = 251.0
+rect_min_size = Vector2( 75, 75 )
+custom_styles/hover = SubResource( 47 )
+custom_styles/pressed = SubResource( 47 )
+custom_styles/focus = SubResource( 48 )
+custom_styles/normal = SubResource( 48 )
+
+[node name="camera_tool" type="Control" parent="ui/root"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -800.0
+margin_top = -300.0
+margin_bottom = 300.0
+mouse_filter = 2
+
+[node name="rotate_left" type="Button" parent="ui/root/camera_tool"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -50.0
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 10 )
+custom_styles/pressed = SubResource( 10 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/normal = SubResource( 11 )
+
+[node name="rotate_right" type="Button" parent="ui/root/camera_tool"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -50.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 13 )
+custom_styles/normal = SubResource( 13 )
+
+[node name="frame" type="NinePatchRect" parent="ui/root"]
+margin_left = -24.0
+margin_top = 320.0
+margin_right = 176.0
+margin_bottom = 620.0
+texture = ExtResource( 16 )
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50
+
+[node name="title" type="Label" parent="ui/root"]
+margin_left = 24.0
+margin_top = 360.0
+margin_right = 94.0
+margin_bottom = 389.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Shapes"
+
+[node name="scroll" type="ScrollContainer" parent="ui/root"]
+margin_left = 16.0
+margin_top = 392.0
+margin_right = 136.0
+margin_bottom = 404.0
+rect_min_size = Vector2( 120, 170 )
+scroll_horizontal_enabled = false
+
+[node name="mesh_list" type="VBoxContainer" parent="ui/root/scroll"]
+margin_right = 120.0
+margin_bottom = 170.0
+rect_min_size = Vector2( 120, 170 )
+
+[node name="delete_tool" type="Control" parent="ui/root"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -608.0
+margin_top = 440.0
+margin_right = -568.0
+margin_bottom = 480.0
+
+[node name="delete" type="Button" parent="ui/root/delete_tool"]
+margin_left = -48.0
+margin_top = -80.0
+margin_right = 52.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 43 )
+custom_styles/pressed = SubResource( 43 )
+custom_styles/focus = SubResource( 44 )
+custom_styles/normal = SubResource( 44 )
+
+[node name="save_tool" type="Control" parent="ui/root"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -800.0
+margin_right = -760.0
+margin_bottom = 40.0
+
+[node name="save" type="Button" parent="ui/root/save_tool"]
+margin_left = 700.0
+margin_right = 800.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 28 )
+custom_styles/pressed = SubResource( 28 )
+custom_styles/focus = SubResource( 27 )
+custom_styles/normal = SubResource( 27 )
+
+[node name="cancel" type="Button" parent="ui/root/save_tool"]
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 29 )
+custom_styles/pressed = SubResource( 30 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/normal = SubResource( 32 )
+
+[node name="save_dialog" type="Control" parent="ui/root"]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+rect_pivot_offset = Vector2( -48, 232 )
+
+[node name="background" type="ColorRect" parent="ui/root/save_dialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.588235 )
+
+[node name="title" type="Label" parent="ui/root/save_dialog"]
+margin_left = 40.0
+margin_top = 184.0
+margin_right = 432.0
+margin_bottom = 242.0
+custom_fonts/font = SubResource( 33 )
+text = "Name Your Work"
+
+[node name="frame" type="NinePatchRect" parent="ui/root/save_dialog"]
+margin_left = 24.0
+margin_top = 248.0
+margin_right = 774.0
+margin_bottom = 348.0
+texture = ExtResource( 16 )
+patch_margin_left = 100
+patch_margin_top = 50
+patch_margin_right = 100
+patch_margin_bottom = 50
+
+[node name="name_edit" type="LineEdit" parent="ui/root/save_dialog"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -351.0
+margin_top = 266.0
+margin_right = 349.0
+margin_bottom = 326.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 34 )
+custom_styles/focus = SubResource( 35 )
+custom_styles/normal = SubResource( 36 )
+align = 1
+max_length = 15
+
+[node name="save_ok" type="Button" parent="ui/root/save_dialog"]
+margin_left = 600.0
+margin_top = 344.0
+margin_right = 750.0
+margin_bottom = 494.0
+rect_min_size = Vector2( 150, 150 )
+custom_styles/hover = SubResource( 37 )
+custom_styles/pressed = SubResource( 37 )
+custom_styles/focus = SubResource( 38 )
+custom_styles/normal = SubResource( 38 )
+
+[node name="save_cancel" type="Button" parent="ui/root/save_dialog"]
+margin_left = 456.0
+margin_top = 344.0
+margin_right = 606.0
+margin_bottom = 494.0
+rect_min_size = Vector2( 150, 150 )
+custom_styles/hover = SubResource( 39 )
+custom_styles/pressed = SubResource( 40 )
+custom_styles/focus = SubResource( 41 )
+custom_styles/normal = SubResource( 42 )
+
+[node name="angle" type="Label" parent="ui/root"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 200, 0 )
+custom_fonts/font = SubResource( 45 )
+text = "0"
+align = 1
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 7 )
+light_energy = 1.294
+directional_shadow_mode = 0
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+
+[connection signal="pressed" from="ui/root/mesh_tool/add_cube" to="." method="_on_add_cube_pressed"]
+[connection signal="pressed" from="ui/root/mesh_tool/add_cone" to="." method="_on_add_cone_pressed"]
+[connection signal="pressed" from="ui/root/mesh_tool/add_sphere" to="." method="_on_add_sphere_pressed"]
+[connection signal="pressed" from="ui/root/move_tool/move_up" to="." method="_on_move_mesh" binds= [ 0 ]]
+[connection signal="pressed" from="ui/root/move_tool/move_down" to="." method="_on_move_mesh" binds= [ 1 ]]
+[connection signal="pressed" from="ui/root/move_tool/move_left" to="." method="_on_move_mesh" binds= [ 2 ]]
+[connection signal="pressed" from="ui/root/move_tool/move_right" to="." method="_on_move_mesh" binds= [ 3 ]]
+[connection signal="pressed" from="ui/root/move_tool/move_up2" to="." method="_on_move_mesh" binds= [ 4 ]]
+[connection signal="pressed" from="ui/root/move_tool/move_down2" to="." method="_on_move_mesh" binds= [ 5 ]]
+[connection signal="gui_input" from="ui/root/camera_tool/rotate_left" to="." method="_on_rotate_left_gui_input"]
+[connection signal="gui_input" from="ui/root/camera_tool/rotate_right" to="." method="_on_rotate_right_gui_input"]
+[connection signal="pressed" from="ui/root/delete_tool/delete" to="." method="_on_delete_pressed"]
+[connection signal="pressed" from="ui/root/save_tool/save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="ui/root/save_tool/cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="ui/root/save_dialog/save_ok" to="." method="_on_save_ok_pressed"]
+[connection signal="pressed" from="ui/root/save_dialog/save_cancel" to="." method="_on_save_cancel_pressed"]

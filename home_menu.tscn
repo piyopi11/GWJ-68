@@ -1,0 +1,510 @@
+[gd_scene load_steps=42 format=2]
+
+[ext_resource path="res://home_menu.gd" type="Script" id=1]
+[ext_resource path="res://dotted_borders.png" type="Texture" id=2]
+[ext_resource path="res://ui/scout_button.png" type="Texture" id=3]
+[ext_resource path="res://ui/forge_painting.png" type="Texture" id=4]
+[ext_resource path="res://ui/forge_statue.png" type="Texture" id=5]
+[ext_resource path="res://ui/start_heist.png" type="Texture" id=6]
+[ext_resource path="res://ui/inventory_button.png" type="Texture" id=7]
+[ext_resource path="res://GochiHand-Regular.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://ui/ui_frame.png" type="Texture" id=9]
+[ext_resource path="res://ui/cancel.png" type="Texture" id=10]
+[ext_resource path="res://ui/delete.png" type="Texture" id=11]
+[ext_resource path="res://prototype_texture.png" type="Texture" id=12]
+
+[sub_resource type="SpatialMaterial" id=23]
+albedo_texture = ExtResource( 12 )
+uv1_scale = Vector3( 2, 2, 2 )
+
+[sub_resource type="PlaneMesh" id=24]
+material = SubResource( 23 )
+size = Vector2( 8, 8 )
+
+[sub_resource type="Environment" id=25]
+background_mode = 1
+background_color = Color( 0.701961, 0.682353, 0.611765, 1 )
+background_energy = 0.2
+
+[sub_resource type="DynamicFont" id=13]
+size = 128
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="DynamicFont" id=14]
+size = 48
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=15]
+size = 24
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 64
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=19]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="ViewportTexture" id=26]
+viewport_path = NodePath("model_3d")
+
+[sub_resource type="DynamicFont" id=27]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=29]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=30]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=31]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[node name="root" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="model_3d" type="Viewport" parent="."]
+size = Vector2( 300, 300 )
+
+[node name="root" type="Spatial" parent="model_3d"]
+
+[node name="base" type="MeshInstance" parent="model_3d/root"]
+visible = false
+mesh = SubResource( 24 )
+
+[node name="environment" type="WorldEnvironment" parent="model_3d/root"]
+environment = SubResource( 25 )
+
+[node name="Camera" type="Camera" parent="model_3d/root"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 7 )
+
+[node name="mesh_group" type="Spatial" parent="model_3d/root"]
+
+[node name="DirectionalLight" type="DirectionalLight" parent="model_3d/root"]
+transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 7 )
+light_energy = 1.294
+directional_shadow_mode = 0
+
+[node name="root_control" type="Control" parent="."]
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background2" type="ColorRect" parent="root_control"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0.701961, 0.682353, 0.611765, 1 )
+
+[node name="frame" type="NinePatchRect" parent="root_control"]
+margin_right = 800.0
+margin_bottom = 600.0
+texture = ExtResource( 2 )
+patch_margin_left = 50
+patch_margin_top = 30
+patch_margin_right = 50
+patch_margin_bottom = 30
+
+[node name="time_space" type="Control" parent="root_control"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="day" type="Label" parent="root_control/time_space"]
+margin_left = 40.0
+margin_top = 24.0
+margin_right = 340.0
+margin_bottom = 176.0
+custom_fonts/font = SubResource( 13 )
+text = "DAY {0}"
+
+[node name="activity_space" type="Control" parent="root_control"]
+margin_left = 200.0
+margin_top = 240.0
+margin_right = 240.0
+margin_bottom = 280.0
+
+[node name="scout_button" type="Button" parent="root_control/activity_space"]
+margin_left = -200.0
+margin_top = -48.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 3 )
+
+[node name="paint_button" type="Button" parent="root_control/activity_space"]
+margin_left = -200.0
+margin_top = 160.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/normal = SubResource( 6 )
+
+[node name="statue_button" type="Button" parent="root_control/activity_space"]
+margin_top = 160.0
+margin_right = 200.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/normal = SubResource( 8 )
+
+[node name="infiltrate_button" type="Button" parent="root_control/activity_space"]
+margin_top = -48.0
+margin_right = 200.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/normal = SubResource( 10 )
+
+[node name="tool_space" type="Control" parent="root_control"]
+margin_left = 344.0
+margin_top = 240.0
+margin_right = 384.0
+margin_bottom = 280.0
+
+[node name="inventory_button" type="Button" parent="root_control/tool_space"]
+margin_left = 256.0
+margin_top = 160.0
+margin_right = 456.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 200, 200 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = SubResource( 11 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/normal = SubResource( 12 )
+
+[node name="beaver_space" type="Control" parent="root_control"]
+margin_left = 592.0
+margin_top = 216.0
+margin_right = 632.0
+margin_bottom = 256.0
+
+[node name="target_frame" type="NinePatchRect" parent="root_control"]
+margin_left = 400.0
+margin_right = 800.0
+margin_bottom = 400.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 50
+patch_margin_right = 100
+patch_margin_bottom = 50
+
+[node name="content" type="VBoxContainer" parent="root_control/target_frame"]
+margin_left = 64.0
+margin_top = 48.0
+margin_right = 336.0
+margin_bottom = 328.0
+rect_min_size = Vector2( 272, 280 )
+
+[node name="title" type="Label" parent="root_control/target_frame/content"]
+margin_right = 272.0
+margin_bottom = 58.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 14 )
+text = "In-Demand"
+
+[node name="refreshes" type="Label" parent="root_control/target_frame"]
+margin_left = 64.0
+margin_top = 296.0
+margin_right = 336.0
+margin_bottom = 325.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 15 )
+text = "Refreshes in "
+
+[node name="inventory_control" type="Control" parent="."]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background2" type="ColorRect" parent="inventory_control"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0.701961, 0.682353, 0.611765, 1 )
+
+[node name="frame" type="NinePatchRect" parent="inventory_control"]
+margin_right = 800.0
+margin_bottom = 600.0
+texture = ExtResource( 2 )
+patch_margin_left = 50
+patch_margin_top = 30
+patch_margin_right = 50
+patch_margin_bottom = 30
+
+[node name="inventory_box" type="NinePatchRect" parent="inventory_control"]
+margin_right = 800.0
+margin_bottom = 600.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="title" type="Label" parent="inventory_control/inventory_box"]
+margin_top = 40.0
+margin_right = 800.0
+margin_bottom = 117.0
+custom_fonts/font = SubResource( 16 )
+text = "Artworks"
+align = 1
+
+[node name="scroll" type="ScrollContainer" parent="inventory_control/inventory_box"]
+margin_left = 60.0
+margin_top = 120.0
+margin_right = 72.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 680, 400 )
+
+[node name="content" type="GridContainer" parent="inventory_control/inventory_box/scroll"]
+margin_right = 680.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 680, 400 )
+custom_constants/vseparation = 0
+custom_constants/hseparation = 0
+columns = 4
+
+[node name="cancel" type="Button" parent="inventory_control"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 18 )
+custom_styles/focus = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+
+[node name="statue_detail" type="Control" parent="inventory_control"]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background" type="ColorRect" parent="inventory_control/statue_detail"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.607843 )
+
+[node name="frame" type="NinePatchRect" parent="inventory_control/statue_detail"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -300.0
+margin_right = 250.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 600 )
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="model" type="TextureRect" parent="inventory_control/statue_detail/frame"]
+margin_left = 99.0
+margin_top = 64.0
+margin_right = 399.0
+margin_bottom = 364.0
+rect_min_size = Vector2( 300, 300 )
+texture = SubResource( 26 )
+flip_v = true
+
+[node name="name_3d" type="Label" parent="inventory_control/statue_detail/frame"]
+margin_left = 61.0
+margin_top = 384.0
+margin_right = 441.0
+margin_bottom = 413.0
+custom_fonts/font = SubResource( 27 )
+text = "Name"
+align = 1
+autowrap = true
+
+[node name="cancel_3d" type="Button" parent="inventory_control/statue_detail"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 18 )
+custom_styles/focus = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+
+[node name="trash_3d" type="Button" parent="inventory_control/statue_detail"]
+margin_left = 8.0
+margin_top = 104.0
+margin_right = 108.0
+margin_bottom = 204.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 28 )
+custom_styles/pressed = SubResource( 29 )
+custom_styles/focus = SubResource( 30 )
+custom_styles/normal = SubResource( 31 )
+
+[node name="paint_detail" type="Control" parent="inventory_control"]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background" type="ColorRect" parent="inventory_control/paint_detail"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.607843 )
+
+[node name="frame" type="NinePatchRect" parent="inventory_control/paint_detail"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -300.0
+margin_right = 250.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 600 )
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="canvas" type="Control" parent="inventory_control/paint_detail/frame"]
+margin_left = 97.0
+margin_top = 64.0
+margin_right = 404.2
+margin_bottom = 371.2
+rect_min_size = Vector2( 300, 300 )
+
+[node name="name_2d" type="Label" parent="inventory_control/paint_detail/frame"]
+margin_left = 61.0
+margin_top = 384.0
+margin_right = 441.0
+margin_bottom = 413.0
+custom_fonts/font = SubResource( 27 )
+text = "Name"
+align = 1
+autowrap = true
+
+[node name="cancel_2d" type="Button" parent="inventory_control/paint_detail"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 17 )
+custom_styles/pressed = SubResource( 18 )
+custom_styles/focus = SubResource( 19 )
+custom_styles/normal = SubResource( 20 )
+
+[node name="trash_2d" type="Button" parent="inventory_control/paint_detail"]
+margin_left = 8.0
+margin_top = 104.0
+margin_right = 108.0
+margin_bottom = 204.0
+rect_min_size = Vector2( 100, 100 )
+custom_styles/hover = SubResource( 28 )
+custom_styles/pressed = SubResource( 29 )
+custom_styles/focus = SubResource( 30 )
+custom_styles/normal = SubResource( 31 )
+
+[connection signal="pressed" from="root_control/activity_space/scout_button" to="." method="_on_scout_button_pressed"]
+[connection signal="pressed" from="root_control/activity_space/paint_button" to="." method="_on_paint_button_pressed"]
+[connection signal="pressed" from="root_control/activity_space/statue_button" to="." method="_on_statue_button_pressed"]
+[connection signal="pressed" from="root_control/activity_space/infiltrate_button" to="." method="_on_infiltrate_button_pressed"]
+[connection signal="pressed" from="root_control/tool_space/inventory_button" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="inventory_control/cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="inventory_control/statue_detail/cancel_3d" to="." method="_on_cancel_3d_pressed"]
+[connection signal="pressed" from="inventory_control/statue_detail/trash_3d" to="." method="_on_trash_3d_pressed"]
+[connection signal="pressed" from="inventory_control/paint_detail/cancel_2d" to="." method="_on_cancel_2d_pressed"]
+[connection signal="pressed" from="inventory_control/paint_detail/trash_2d" to="." method="_on_trash_2d_pressed"]

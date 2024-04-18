@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+
+[sub_resource type="CubeMesh" id=22]
+material = SubResource( 3 )
+size = Vector3( 2, 6, 2 )
+
+[sub_resource type="BoxShape" id=23]
+extents = Vector3( 1, 3, 1 )
+
+[node name="walls" type="StaticBody"]
+
+[node name="mesh" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+mesh = SubResource( 22 )
+
+[node name="collision" type="CollisionShape" parent="." groups=["cullable", "walls"]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0 )
+shape = SubResource( 23 )

@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ui/ui_frame_icon.png" type="Texture" id=1]
+[ext_resource path="res://GochiHand-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://ui/ui_frame_overlaid_icon.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 36
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="root" type="TextureProgress"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -715.0
+margin_bottom = -515.0
+rect_min_size = Vector2( 85, 85 )
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 3 )
+fill_mode = 3
+nine_patch_stretch = true
+stretch_margin_left = 20
+stretch_margin_top = 20
+stretch_margin_right = 20
+stretch_margin_bottom = 20
+
+[node name="icon" type="TextureRect" parent="."]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 72.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 60, 60 )
+expand = true
+
+[node name="number" type="Label" parent="."]
+margin_left = 53.0
+margin_top = 41.0
+margin_right = 68.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 1 )
+text = "1"
+align = 1

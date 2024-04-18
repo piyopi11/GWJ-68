@@ -1,0 +1,130 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://npc/cop.gd" type="Script" id=1]
+[ext_resource path="res://cop_hat.glb" type="PackedScene" id=2]
+
+[sub_resource type="SpatialMaterial" id=13]
+albedo_color = Color( 0.160784, 0.501961, 0.72549, 1 )
+
+[sub_resource type="SphereMesh" id=14]
+material = SubResource( 13 )
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SpatialMaterial" id=15]
+albedo_color = Color( 0.203922, 0.286275, 0.368627, 1 )
+
+[sub_resource type="CylinderMesh" id=16]
+material = SubResource( 15 )
+top_radius = 0.25
+bottom_radius = 0.5
+height = 1.5
+
+[sub_resource type="CapsuleShape" id=5]
+radius = 0.8
+height = 1.5
+
+[sub_resource type="Animation" id=6]
+resource_name = "walking"
+length = 0.6
+tracks/0/type = "transform"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = PoolRealArray( 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0.3, 1, 0, 0.22187, 0, 0, 0, 0, 1, 1, 1, 1, 0.6, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("mesh")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray(  )
+
+[sub_resource type="Animation" id=7]
+resource_name = "walking"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("../mesh:transform")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644951, 0 ), Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 ), Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.645, 0 ) ]
+}
+
+[sub_resource type="CylinderShape" id=12]
+height = 3.0
+radius = 1.3
+
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 2, 1, 5 )
+
+[node name="cop" type="KinematicBody" groups=["cop", "npc"]]
+collision_layer = 2
+script = ExtResource( 1 )
+
+[node name="mesh" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.644951, 0 )
+
+[node name="cop_hat" parent="mesh" instance=ExtResource( 2 )]
+transform = Transform( -0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 1.47478, 0 )
+
+[node name="head" type="MeshInstance" parent="mesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37308, 0 )
+mesh = SubResource( 14 )
+
+[node name="body" type="MeshInstance" parent="mesh"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.124282, 0 )
+mesh = SubResource( 16 )
+
+[node name="collision" type="CollisionShape" parent="."]
+transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 1.23241, 0 )
+shape = SubResource( 5 )
+
+[node name="animation" type="AnimationPlayer" parent="."]
+anims/walking = SubResource( 6 )
+
+[node name="animation" type="AnimationPlayer" parent="animation"]
+anims/walking = SubResource( 7 )
+
+[node name="detection" type="Area" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="collision" type="CollisionShape" parent="detection"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51548, 0 )
+shape = SubResource( 12 )
+
+[node name="text" type="Label3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.86147, 0 )
+visible = false
+pixel_size = 0.05
+text = "Nothing to see here"
+
+[node name="nav_agent" type="NavigationAgent" parent="."]
+avoidance_enabled = true
+radius = 4.0
+
+[node name="flashlight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2173, 1.47009 )
+omni_range = 3.0
+omni_attenuation = 1.93187
+omni_shadow_mode = 0
+
+[node name="vision" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="collision" type="CollisionShape" parent="vision"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5 )
+shape = SubResource( 17 )
+
+[connection signal="body_entered" from="detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
