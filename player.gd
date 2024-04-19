@@ -390,6 +390,7 @@ func _on_text_decay_timeout():
 	$ui/chatter.visible = false
 
 func _on_back_button_pressed():
+	GameManager.setup_day()
 	SceneManager.change_scene("res://home_menu.tscn")
 
 func end_stage () :
