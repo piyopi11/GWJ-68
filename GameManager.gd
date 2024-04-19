@@ -51,16 +51,16 @@ const tools_base = [
 		"name": "Camo-Suit", 
 		"desc": "Becomes invisible for 3 seconds. 20 seconds cooldown.", 
 		"usable": true, 
-		"limit": 0, 
+		"limit": -1, 
 		"cool": 20, 
 		"icon": "camo_lens", 
 		"unlocked": 9
 	},
 	{
-		"name": "Time Stopper", 
-		"desc": "Stops the stage timer for 10 seconds. Can be used 3 times.", 
-		"usable": true, 
-		"limit": 3, 
+		"name": "Golden Time", 
+		"desc": "Increase heist time by 30 seconds", 
+		"usable": false, 
+		"limit": 0, 
 		"cool": 0, 
 		"icon": "time_stopper", 
 		"unlocked": 10
@@ -71,12 +71,12 @@ const tools_base = [
 var score = 0
 var inventory = []
 var total_art = 0
-var art_stolen = 5
+var art_stolen = 0
 
 var tools = []
 var art = "0"
 var bag = []
-var art_limit = 1
+var art_limit = 2
 
 #gallery related
 var paintings = []
@@ -113,10 +113,11 @@ func setup_data () :
 	score = 0
 	inventory = []
 	total_art = 0
+	art_stolen = 0
 	tools = []
 	art = "0"
 	bag = []
-	art_limit = 1
+	art_limit = 2
 	paintings = []
 	statues = []
 	security_level = 1

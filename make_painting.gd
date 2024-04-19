@@ -92,7 +92,6 @@ func _on_save_ok_pressed():
 	var arr = []
 	for c in $root/canvas.get_children() :
 		arr.append(c.get_node("color").color.to_html(false))
-#	print(JSON.print(arr))
 	
 	GameManager.save_artwork("painting", paint_name, arr)
 	GameManager.setup_day()

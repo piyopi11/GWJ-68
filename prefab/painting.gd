@@ -40,7 +40,7 @@ func swap_data (key) :
 	var data = GameManager.get_inventory(key).data
 	GameManager.get_painting(idx).data.colors = data
 	GameManager.get_painting(idx).forged = true
-	LevelManager.art_taken.append(idx)
+	LevelManager.art_taken.append({"t": "p", "k": idx})
 	LevelManager.art_name.append(GameManager.get_painting(idx).data.name)
 	LevelManager.calculate_painting_likeness(data)
 	setup_painting()

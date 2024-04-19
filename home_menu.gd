@@ -78,6 +78,7 @@ func _on_prepare_inventory_box_pressed (key, node) :
 	refresh_bag()
 
 func refresh_bag () :
+	$heist_preparation/artwork/bag_frame/val.text = str(GameManager.bag.size())
 	for c in $heist_preparation/artwork/bag_frame/content/rows.get_children() :
 		c.queue_free()
 	for k in GameManager.bag :
@@ -168,6 +169,7 @@ func _on_heist_cancel_pressed():
 
 func _on_heist_ok_pressed() :
 	if GameManager.bag.size() > 0 && $heist_preparation/artwork.visible == true :
+		refresh_tool()
 		$heist_preparation/artwork.visible = false
 		$heist_preparation/tools.visible = true
 	elif GameManager.bag.size() > 0 && $heist_preparation/tools.visible :

@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://home_menu.gd" type="Script" id=1]
 [ext_resource path="res://dotted_borders.png" type="Texture" id=2]
@@ -163,6 +163,14 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=33]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=42]
 size = 32
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
@@ -633,6 +641,22 @@ margin_bottom = 382.0
 margin_right = 180.0
 margin_bottom = 320.0
 rect_min_size = Vector2( 180, 320 )
+
+[node name="val" type="Label" parent="heist_preparation/artwork/bag_frame"]
+margin_left = 190.0
+margin_top = 45.0
+margin_right = 208.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 42 )
+text = "0"
+
+[node name="limit" type="Label" parent="heist_preparation/artwork/bag_frame"]
+margin_left = 215.0
+margin_top = 45.0
+margin_right = 255.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 42 )
+text = "/2"
 
 [node name="inventory_frame" type="NinePatchRect" parent="heist_preparation/artwork"]
 margin_right = 500.0

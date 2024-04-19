@@ -39,6 +39,12 @@ func setup_navserver():
 
 	yield(get_tree(), "physics_frame")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_cricket_playing(target):
+	for c in $cop.get_children() :
+		c.mode = c.MODE.INVESTIGATE
+		c.path_find(target)
+
+func _on_cricket_dead():
+	for c in $cop.get_children() :
+		if c.mode==c.MODE.INVESTIGATE :
+			c.return_to_initial_position()

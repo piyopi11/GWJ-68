@@ -12,7 +12,7 @@ var npc_group = []
 var interact_node = null
 var interacting = false
 var interaction_progress = 0.0
-var interaction_step = 3.0
+var interaction_step = 5.0
 var swiping_item = null
 var can_interact = false
 
@@ -28,6 +28,18 @@ var result_complete = false
 const EMPTY = preload("res://ui/ui_frame.png")
 const ART = preload("res://ui/forge_painting.png")
 const STATUE = preload("res://ui/forge_statue.png")
+
+var tool_lock=0
+var tool_hold=0.0
+
+var active_tool = [false, false, false]
+var tool_cooldown = [0.0, 0.0, 0.0]
+var tool_use = [0, 0, 0]
+var tool_duration = [0.0, 0.0, 0.0]
+
+var stealth = false
+export (NodePath) var cricket_path
+onready var cricket = get_node(cricket_path)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -52,15 +64,19 @@ func setup_ui() :
 			$ui/current_frame.texture = STATUE
 		$ui/current_frame.visible = true
 		for i in range(GameManager.tools.size()) :
-			print(i)
+			tool_use[i] = GameManager.tools_base[GameManager.tools[i]].limit
+			if (GameManager.tools_base[GameManager.tools[i]].cool != 0) :
+				$ui/tool_box.get_node("tool{0}".format([i+1])).max_value=GameManager.tools_base[GameManager.tools[i]].cool
 			$ui/tool_box.get_node("tool{0}".format([i+1])).get_node("icon").texture = load("res://tools/{0}.png".format([GameManager.tools_base[GameManager.tools[i]].icon]))
 
 func _process(_delta) :
 	if result_screen == false :
-		check_input()
+		check_input(_delta)
 		if interacting && interaction_progress < 100.0:
 			perform_interaction(_delta)
 		check_raycast()
+		tool_decay(_delta)
+		cooldown_tool(_delta)
 
 func perform_interaction (delta) :
 	interaction_progress = min(interaction_progress + (interaction_step * delta), 100.0)
@@ -132,7 +148,7 @@ func check_mouse_movement (event) :
 				$fps_camera.rotate_y(deg2rad(m_x * 0.5) )
 				$fps_camera.rotation.z = 0.0
 
-func check_input() :
+func check_input(delta) :
 	if is_first_person == false :
 		if interacting == false :
 			#check sprinting first 
@@ -158,9 +174,39 @@ func check_input() :
 			else :
 				move_z = 0.0
 			#tool block
-			if Input.is_action_just_pressed("ui_tool_1") && mode == "heist" :
-				random_teleport()
-				
+			if Input.is_action_pressed("ui_tool_1") && mode == "heist" :
+				if tool_lock == 0 :
+					tool_lock = 1
+				tool_hold += delta
+			elif Input.is_action_pressed("ui_tool_2") && mode == "heist" :
+				if tool_lock == 0 :
+					tool_lock = 2
+				tool_hold += delta
+			elif Input.is_action_pressed("ui_tool_3") && mode == "heist" :
+				if tool_lock == 0 :
+					tool_lock = 3
+				tool_hold += delta
+			elif Input.is_action_just_released("ui_tool_1") && mode =="heist" && tool_lock == 1 :
+				if tool_hold >= 0.3 :
+					process_hold(0)
+				else :
+					process_tap(0)
+				tool_lock = 0
+				tool_hold = 0.0
+			elif Input.is_action_just_released("ui_tool_2") && mode =="heist" && tool_lock == 2 :
+				if tool_hold >= 0.3 :
+					process_hold(1)
+				else :
+					process_tap(1)
+				tool_lock = 0
+				tool_hold = 0.0
+			elif Input.is_action_just_released("ui_tool_3") && mode =="heist" && tool_lock == 3 :
+				if tool_hold >= 0.3 :
+					process_hold(2)
+				else :
+					process_tap(2)
+				tool_lock = 0
+				tool_hold = 0.0
 		if Input.is_action_pressed("ui_interact") && mode == "heist" && interact_node != null:
 			if interact_node.is_in_group("exit") :
 				end_stage()
@@ -208,6 +254,69 @@ func check_input() :
 			is_first_person = false
 			changing_camera = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func process_tap (idx) :
+	if active_tool[idx]==false && tool_cooldown[idx]==0.0 && tool_use[idx] != 0:
+		match (GameManager.tools[idx]) :
+			1 :
+				$ui/tool_box.get_node("tool{0}".format([idx+1])).value = float(GameManager.tools_base[GameManager.tools[idx]].cool)
+				speed *= 2.0
+				active_tool[idx]=true
+				tool_duration[idx]=5.0
+				tool_use[idx]-=1
+			2 :
+				active_tool[idx]=true
+				var r = int(rand_range(0, 2))
+				if r == 0 :
+					end_stage()
+				else :
+					random_teleport()
+					tool_duration[idx] = 0.1
+					tool_use[idx]-=1
+			4 :
+				cricket.translation = self.translation
+				cricket.placed = true
+			5 :
+				$ui/tool_box.get_node("tool{0}".format([idx+1])).value = float(GameManager.tools_base[GameManager.tools[idx]].cool)
+				stealth = true
+				active_tool[idx]=true
+				tool_duration[idx]=3.0
+				tool_use[idx]-=1
+			
+
+func process_hold (idx) :
+	if active_tool[idx]==false && tool_cooldown[idx]==0.0 && tool_use[idx] != 0 :
+		match (GameManager.tools[idx]) :
+			4 :
+				if cricket.placed == true :
+					active_tool[idx]=true
+					cricket.activate()
+					tool_duration[idx] = 0.1
+					tool_use[idx]-=1
+					print(tool_use[idx])
+			_ :
+				process_tap(idx)
+
+func remove_tool_effect (idx) :
+	match(idx) :
+		1 : 
+			speed /= 2.0
+		5 :
+			stealth = false
+
+func tool_decay (delta) :
+	for i in range(3) :
+		if tool_duration[i] > 0.0 :
+			tool_duration[i]=max(tool_duration[i]-delta, 0.0)
+			if tool_duration[i]==0.0 :
+				remove_tool_effect(GameManager.tools[i])
+				tool_cooldown[i]=float(GameManager.tools_base[GameManager.tools[i]].cool)
+				active_tool[i] = false
+func cooldown_tool (delta) :
+	for i in range(3) :
+		if tool_cooldown[i] > 0.0 :
+			tool_cooldown[i]=max(tool_cooldown[i]-delta, 0.0)
+			$ui/tool_box.get_node("tool{0}".format([i+1])).value = tool_cooldown[i]
 
 func random_teleport () :
 	randomize()

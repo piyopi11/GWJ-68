@@ -25,7 +25,9 @@ func _ready():
 	pass # Replace with function body.
 
 func setup_level () :
-	time = 180.0
+	time = 60.0
+	if GameManager.tools.has(6) :
+		time += 30.0
 	alert_time = 0
 	tool_used = 0
 	art_name = []
@@ -53,6 +55,16 @@ func calculate_score () :
 	b -= 50 if tool_used >= 10 else 0
 	b -= (20 * int(alert_time))
 	b = max(b, 0)
+	if art_taken.size() == 0 :
+		b *= 0
+	for i in art_taken :
+		var k = ""
+		if i.t == "p" :
+			k = GameManager.paintings[int(art_taken.back().k)].key
+		elif i.t == "s" :
+			k = GameManager.statues[int(art_taken.back().k)].key
+		if GameManager.in_demand.has(k) :
+			b *= 2.0
 	total_score = b
 	
 	stage_rank = "S" if total_score >= 1000 else "A" if total_score >= 850 else "B" if total_score >= 600 else "C" if total_score >= 300 else "D" if total_score > 0 else "F"
@@ -61,7 +73,7 @@ func calculate_painting_likeness (data) :
 	likeness = 0.0
 	
 	var s1 : Array = data
-	var s2 : Array = Artwork.paintings[GameManager.paintings[int(art_taken.back())].key].colors
+	var s2 : Array = Artwork.paintings[GameManager.paintings[int(art_taken.back().k)].key].colors
 	
 #	var matrix_a = []
 #	var matrix_b = []
@@ -93,7 +105,7 @@ func calculate_statue_likeness (data) :
 	likeness = 0.0
 	
 	var s1 : Array = data
-	var s2 : Array = Artwork.statues[GameManager.statues[int(art_taken.back())].key].data
+	var s2 : Array = Artwork.statues[GameManager.statues[int(art_taken.back().k)].key].data
 	
 	var margin = 1.0
 	

@@ -2,7 +2,7 @@ extends KinematicBody
 
 var chatter = "Nothing to see here"
 
-enum MODE {SENTRY, AWARE, PATROL, CHASE, RETURNING, NEUTRAL}
+enum MODE {SENTRY, AWARE, PATROL, CHASE, RETURNING, NEUTRAL, INVESTIGATE}
 
 export (MODE) var mode = MODE.SENTRY
 export var alert_level = 0.0
@@ -39,7 +39,7 @@ func path_find(target):
 func _physics_process (delta) :
 	if LevelManager.level_start == true :
 		if is_moving && !is_chasing :
-			if mode == MODE.RETURNING : 
+			if mode == MODE.RETURNING || mode == MODE.INVESTIGATE : 
 				target_path = $nav_agent.get_next_location()
 				yield(adjust_steps(0.3), "completed")
 			if translation != target_path :
@@ -52,6 +52,8 @@ func _physics_process (delta) :
 			move_and_collide(Vector3(move_x * delta, 0.0, move_z * delta))
 			check_target()
 		elif is_moving && is_chasing :
+			if target_node.stealth == true :
+				_on_vision_body_exited(target_node)
 			yield(get_target_position(), "completed")
 			if $animation/animation.is_playing() == false :
 				$animation/animation.play("walking")
@@ -151,13 +153,14 @@ func setup_chase () :
 	is_chasing = true
 	is_moving = true
 
-func _on_vision_body_entered(body):
+func _on_vision_body_entered(body) :
 	if body.is_in_group("player") && mode != MODE.NEUTRAL :
-		target_node = body
-		mode = MODE.CHASE
-		setup_chase()
+		if body.stealth == false :
+			target_node = body
+			mode = MODE.CHASE
+			setup_chase()
 
-func _on_vision_body_exited(body):
+func _on_vision_body_exited(body) :
 	if body.is_in_group("player") && mode != MODE.NEUTRAL :
 		target_node = null
 		target_path = translation
@@ -166,6 +169,11 @@ func _on_vision_body_exited(body):
 		yield(path_find(initial_position), "completed")
 		mode = MODE.RETURNING
 		is_moving = true
+
+func return_to_initial_position () :
+	yield(path_find(initial_position), "completed")
+	mode = MODE.RETURNING
+	is_moving = true
 
 func _on_detection_body_entered(body):
 	if mode == MODE.CHASE && body.is_in_group("player") :

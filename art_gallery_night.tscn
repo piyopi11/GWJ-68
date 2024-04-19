@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://art_gallery_night.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://npc/cop.tscn" type="PackedScene" id=4]
 [ext_resource path="res://prefab/statue.tscn" type="PackedScene" id=5]
 [ext_resource path="res://prefab/painting.tscn" type="PackedScene" id=6]
+[ext_resource path="res://prefab/cricket.tscn" type="PackedScene" id=7]
 [ext_resource path="res://art_gallery_navmap.tres" type="NavigationMesh" id=8]
 
 [sub_resource type="OpenSimplexNoise" id=5]
@@ -459,8 +460,12 @@ collision_mask = 6
 constant_angular_velocity = Vector3( 0, 90, 0 )
 idx = 7
 
+[node name="cricket" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100 )
+
 [node name="player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 24 )
+cricket_path = NodePath("../cricket")
 
 [node name="world" type="WorldEnvironment" parent="."]
 environment = SubResource( 24 )
@@ -527,3 +532,6 @@ omni_range = 30.498
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -14, 0, 8 )
 mode = 2
 patrol_path = PoolVector3Array( -14, 0, 8, -14, 0, -22, 0, 0, -22, 0, 0, 8 )
+
+[connection signal="dead" from="cricket" to="." method="_on_cricket_dead"]
+[connection signal="playing" from="cricket" to="." method="_on_cricket_playing"]
