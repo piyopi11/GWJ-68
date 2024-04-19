@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://home_menu.gd" type="Script" id=1]
 [ext_resource path="res://dotted_borders.png" type="Texture" id=2]
@@ -13,6 +13,14 @@
 [ext_resource path="res://ui/delete.png" type="Texture" id=11]
 [ext_resource path="res://prototype_texture.png" type="Texture" id=12]
 [ext_resource path="res://ui/confirm.png" type="Texture" id=13]
+[ext_resource path="res://tools/night_vision.png" type="Texture" id=14]
+[ext_resource path="res://tools/swift_gloves.png" type="Texture" id=15]
+[ext_resource path="res://tools/booster_boots.png" type="Texture" id=16]
+[ext_resource path="res://tools/take_me_away_inator.png" type="Texture" id=17]
+[ext_resource path="res://tools/noisy_cricket.png" type="Texture" id=18]
+[ext_resource path="res://tools/camo_lens.png" type="Texture" id=19]
+[ext_resource path="res://tools/time_stopper.png" type="Texture" id=20]
+[ext_resource path="res://ui/circle_frame.png" type="Texture" id=21]
 
 [sub_resource type="SpatialMaterial" id=23]
 albedo_texture = ExtResource( 12 )
@@ -161,6 +169,29 @@ outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFont" id=41]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="DynamicFontData" id=39]
+font_path = "res://GochiHand-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=38]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 39 )
+
+[sub_resource type="DynamicFont" id=40]
+size = 28
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 39 )
 
 [sub_resource type="StyleBoxTexture" id=34]
 texture = ExtResource( 13 )
@@ -560,20 +591,6 @@ margin_bottom = 111.0
 custom_fonts/font = SubResource( 32 )
 text = "Heist Preparation"
 
-[node name="help" type="Label" parent="heist_preparation"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -360.0
-margin_top = -103.0
-margin_right = 360.0
-margin_bottom = 20.0
-custom_fonts/font = SubResource( 33 )
-text = "Click on an artwork to add it to your bag, click on it again to remove it from your bag"
-align = 1
-autowrap = true
-
 [node name="artwork" type="Control" parent="heist_preparation"]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -581,6 +598,20 @@ margin_left = -360.0
 margin_top = 83.0
 margin_right = 360.0
 margin_bottom = 533.0
+
+[node name="help" type="Label" parent="heist_preparation/artwork"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -360.0
+margin_top = -36.0
+margin_right = 360.0
+margin_bottom = 87.0
+custom_fonts/font = SubResource( 33 )
+text = "Click on an artwork to add it to your bag, click on it again to remove it from your bag"
+align = 1
+autowrap = true
 
 [node name="bag_frame" type="NinePatchRect" parent="heist_preparation/artwork"]
 margin_left = 450.0
@@ -621,6 +652,318 @@ margin_bottom = 381.0
 [node name="grid" type="GridContainer" parent="heist_preparation/artwork/inventory_frame/content"]
 columns = 2
 
+[node name="tools" type="Control" parent="heist_preparation"]
+visible = false
+margin_left = 40.0
+margin_top = 83.0
+margin_right = 760.0
+margin_bottom = 533.0
+
+[node name="frame" type="NinePatchRect" parent="heist_preparation/tools"]
+margin_right = 360.0
+margin_bottom = 520.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="tool1" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 56.0
+margin_top = 45.0
+margin_right = 176.0
+margin_bottom = 165.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool1"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 14 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool1"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool1/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="tool2" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 184.0
+margin_top = 45.0
+margin_right = 304.0
+margin_bottom = 165.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool2"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 16 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool2"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool2/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="tool3" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 56.0
+margin_top = 149.0
+margin_right = 176.0
+margin_bottom = 269.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool3"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 17 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool3"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool3/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="tool4" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 184.0
+margin_top = 149.0
+margin_right = 304.0
+margin_bottom = 269.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool4"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool4"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool4/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="tool5" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 56.0
+margin_top = 253.0
+margin_right = 176.0
+margin_bottom = 373.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool5"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 18 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool5"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool5/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="tool6" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 184.0
+margin_top = 253.0
+margin_right = 304.0
+margin_bottom = 373.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool6"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 19 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool6"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool6/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="tool7" type="TextureRect" parent="heist_preparation/tools/frame"]
+margin_left = 120.0
+margin_top = 357.0
+margin_right = 240.0
+margin_bottom = 477.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame/tool7"]
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+expand = true
+
+[node name="circle" type="TextureRect" parent="heist_preparation/tools/frame/tool7"]
+visible = false
+margin_left = 72.0
+margin_right = 112.0
+margin_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource( 21 )
+expand = true
+
+[node name="num" type="Label" parent="heist_preparation/tools/frame/tool7/circle"]
+margin_right = 40.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 41 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="frame2" type="NinePatchRect" parent="heist_preparation/tools"]
+margin_left = 280.0
+margin_top = -3.0
+margin_right = 780.0
+margin_bottom = 517.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="name" type="Label" parent="heist_preparation/tools/frame2"]
+visible = false
+margin_left = 48.0
+margin_top = 56.0
+margin_right = 448.0
+margin_bottom = 145.0
+rect_min_size = Vector2( 250, 0 )
+custom_fonts/font = SubResource( 38 )
+text = "Name
+"
+align = 1
+
+[node name="tool_box" type="TextureRect" parent="heist_preparation/tools/frame2"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -80.0
+margin_top = -160.0
+margin_right = 80.0
+texture = ExtResource( 9 )
+expand = true
+
+[node name="icon" type="TextureRect" parent="heist_preparation/tools/frame2/tool_box"]
+margin_right = 160.0
+margin_bottom = 160.0
+texture = ExtResource( 20 )
+expand = true
+
+[node name="desc" type="Label" parent="heist_preparation/tools/frame2"]
+visible = false
+margin_left = 59.0
+margin_top = 250.0
+margin_right = 439.0
+margin_bottom = 339.0
+rect_min_size = Vector2( 380, 0 )
+custom_fonts/font = SubResource( 40 )
+text = "Desc"
+align = 1
+autowrap = true
+
+[node name="help" type="Label" parent="heist_preparation/tools/frame2"]
+margin_left = 59.0
+margin_top = 60.0
+margin_right = 439.0
+margin_bottom = 440.0
+rect_min_size = Vector2( 380, 0 )
+custom_fonts/font = SubResource( 40 )
+text = "Choose up to 3 tools to bring with you. Click on a tool once to select it. Click on a tool again to deselect it."
+align = 1
+valign = 1
+autowrap = true
+
 [node name="heist_cancel" type="Button" parent="heist_preparation"]
 margin_left = 8.0
 margin_top = 8.0
@@ -653,5 +996,26 @@ custom_styles/normal = SubResource( 37 )
 [connection signal="pressed" from="inventory_control/statue_detail/trash_3d" to="." method="_on_trash_3d_pressed"]
 [connection signal="pressed" from="inventory_control/paint_detail/cancel_2d" to="." method="_on_cancel_2d_pressed"]
 [connection signal="pressed" from="inventory_control/paint_detail/trash_2d" to="." method="_on_trash_2d_pressed"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool1" to="." method="_on_tool_gui_input" binds= [ 0 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool1" to="." method="_on_tool_mouse_entered" binds= [ 0 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool1" to="." method="_on_tool_mouse_exited"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool2" to="." method="_on_tool_gui_input" binds= [ 1 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool2" to="." method="_on_tool_mouse_entered" binds= [ 1 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool2" to="." method="_on_tool_mouse_exited"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool3" to="." method="_on_tool_gui_input" binds= [ 2 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool3" to="." method="_on_tool_mouse_entered" binds= [ 2 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool3" to="." method="_on_tool_mouse_exited"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool4" to="." method="_on_tool_gui_input" binds= [ 3 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool4" to="." method="_on_tool_mouse_entered" binds= [ 3 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool4" to="." method="_on_tool_mouse_exited"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool5" to="." method="_on_tool_gui_input" binds= [ 4 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool5" to="." method="_on_tool_mouse_entered" binds= [ 4 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool5" to="." method="_on_tool_mouse_exited"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool6" to="." method="_on_tool_gui_input" binds= [ 5 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool6" to="." method="_on_tool_mouse_entered" binds= [ 5 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool6" to="." method="_on_tool_mouse_exited"]
+[connection signal="gui_input" from="heist_preparation/tools/frame/tool7" to="." method="_on_tool_gui_input" binds= [ 6 ]]
+[connection signal="mouse_entered" from="heist_preparation/tools/frame/tool7" to="." method="_on_tool_mouse_entered" binds= [ 6 ]]
+[connection signal="mouse_exited" from="heist_preparation/tools/frame/tool7" to="." method="_on_tool_mouse_exited"]
 [connection signal="pressed" from="heist_preparation/heist_cancel" to="." method="_on_heist_cancel_pressed"]
 [connection signal="pressed" from="heist_preparation/heist_ok" to="." method="_on_heist_ok_pressed"]

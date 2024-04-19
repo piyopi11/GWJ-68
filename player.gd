@@ -12,7 +12,7 @@ var npc_group = []
 var interact_node = null
 var interacting = false
 var interaction_progress = 0.0
-var interaction_step = 30.0
+var interaction_step = 3.0
 var swiping_item = null
 var can_interact = false
 
@@ -39,6 +39,7 @@ func setup_ui() :
 		$ui/back_button.visible = true
 		$ui/tool_box.visible = false
 		$ui/result_screen.visible = false
+		$ui/current_frame.visible = false
 	elif mode == "heist" :
 		$ui/time_counter.visible = true
 		$ui/back_button.visible = false
@@ -49,6 +50,10 @@ func setup_ui() :
 			$ui/current_frame.texture = ART
 		elif  GameManager.get_inventory(GameManager.bag[0]).type == "statue" :
 			$ui/current_frame.texture = STATUE
+		$ui/current_frame.visible = true
+		for i in range(GameManager.tools.size()) :
+			print(i)
+			$ui/tool_box.get_node("tool{0}".format([i+1])).get_node("icon").texture = load("res://tools/{0}.png".format([GameManager.tools_base[GameManager.tools[i]].icon]))
 
 func _process(_delta) :
 	if result_screen == false :
@@ -62,6 +67,7 @@ func perform_interaction (delta) :
 	$ui/interaction_progress.value = interaction_progress
 	if interaction_progress >= 100.0 :
 		swiping_item.swap_data(GameManager.bag.pop_front())
+		GameManager.art_stolen += 1
 		can_interact = GameManager.bag.size() > 0
 		if can_interact :
 			$ui/current_frame/name.text = GameManager.get_inventory(GameManager.bag[0]).name
@@ -86,15 +92,16 @@ func _input(event) :
 func check_raycast() :
 	if is_first_person == false :
 		var b = $Camera/RayCast.get_collider()
-		if b.is_in_group("cullable") && front != b :
-	#		b.visible = false
-			b.get_node("mesh").mesh.material.albedo_color = Color(1.0, 1.0, 1.0, 0.5)
-		if front != b && front != null :
-			if front.is_in_group("cullable") :
-				front.get_node("mesh").mesh.material.albedo_color = Color(1.0, 1.0, 1.0, 1.0)
-			front = b
-		elif front == null :
-			front = b
+		if b != null :
+			if b.is_in_group("cullable") && front != b :
+		#		b.visible = false
+				b.get_node("mesh").mesh.material.albedo_color = Color(1.0, 1.0, 1.0, 0.5)
+			if front != b && front != null :
+				if front.is_in_group("cullable") :
+					front.get_node("mesh").mesh.material.albedo_color = Color(1.0, 1.0, 1.0, 1.0)
+				front = b
+			elif front == null :
+				front = b
 	else :
 		var b = $fps_camera/ray.get_collider()
 		if b != null && mode == "visit" :

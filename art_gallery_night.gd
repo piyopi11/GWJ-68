@@ -8,6 +8,10 @@ func _ready():
 	$player.speed = 10.0
 	$player.can_interact = true
 	$player.setup_ui()
+	if GameManager.tools.has(0) :
+		$world.environment.ambient_light_color = Color("#3d5d38")
+	if GameManager.tools.has(3) :
+		$player.interaction_step *= 3.0
 #	GameManager.art = GameManager.inventory[0].key
 	LevelManager.setup_level()
 	LevelManager.time_node = $player.get_node("ui/time_counter")

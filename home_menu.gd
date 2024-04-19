@@ -155,13 +155,59 @@ func _on_trash_2d_pressed():
 	_on_cancel_2d_pressed()
 
 func _on_heist_cancel_pressed():
-	GameManager.tools = []
-	GameManager.bag = []
-	refresh_heist_inventory()
-	refresh_bag()
-	$heist_preparation.visible = false
-	$root_control.visible = true
+	if $heist_preparation/tools.visible == true :
+		$heist_preparation/tools.visible = false 
+		$heist_preparation/artwork.visible = true
+	else :
+		GameManager.tools = []
+		GameManager.bag = []
+		refresh_heist_inventory()
+		refresh_bag()
+		$heist_preparation.visible = false
+		$root_control.visible = true
 
 func _on_heist_ok_pressed() :
-	if GameManager.bag.size() > 0 :
+	if GameManager.bag.size() > 0 && $heist_preparation/artwork.visible == true :
+		$heist_preparation/artwork.visible = false
+		$heist_preparation/tools.visible = true
+	elif GameManager.bag.size() > 0 && $heist_preparation/tools.visible :
 		SceneManager.change_scene("res://art_gallery_night.tscn")
+
+func _on_tool_mouse_entered(arg=0):
+	var t = GameManager.tools_base[arg]
+	$heist_preparation/tools/frame2/name.text = t.name
+	if GameManager.art_stolen >= t.unlocked :
+		$heist_preparation/tools/frame2/desc.text = t.desc
+	else :
+		$heist_preparation/tools/frame2/desc.text = "Unlocked after stealing {0} more {1}".format([t.unlocked - GameManager.art_stolen, "artwork" if t.unlocked - GameManager.art_stolen == 1 else "artworks"])
+	$heist_preparation/tools/frame2/tool_box/icon.texture = get_node("heist_preparation/tools/frame/tool{0}".format([arg+1])).texture
+	$heist_preparation/tools/frame2/help.visible = false
+	$heist_preparation/tools/frame2/name.visible = true
+	$heist_preparation/tools/frame2/desc.visible = true
+	$heist_preparation/tools/frame2/tool_box.visible = true
+
+func _on_tool_mouse_exited():
+	$heist_preparation/tools/frame2/name.visible = false
+	$heist_preparation/tools/frame2/desc.visible = false
+	$heist_preparation/tools/frame2/tool_box.visible = false
+	$heist_preparation/tools/frame2/help.visible = true
+
+func refresh_tool () :
+	for i in range(7) :
+		if GameManager.tools.has(i) :
+			$heist_preparation/tools/frame.get_node("tool{0}".format([i+1])).get_node("circle/num").text = str(GameManager.tools.find(i) + 1)
+			$heist_preparation/tools/frame.get_node("tool{0}".format([i+1])).get_node("circle").visible = true
+		else :
+			$heist_preparation/tools/frame.get_node("tool{0}".format([i+1])).get_node("circle").visible = false
+
+func _on_tool_gui_input(event, arg=0):
+	if event is InputEventMouseButton :
+		if event.pressed == true && event.button_index == BUTTON_LEFT :
+			if GameManager.art_stolen >= GameManager.tools_base[arg].unlocked :
+				if GameManager.tools.has(arg) :
+					GameManager.tools.erase(arg)
+					refresh_tool()
+				else :
+					if GameManager.tools.size() < 3 :
+						GameManager.tools.append(arg)
+						refresh_tool()

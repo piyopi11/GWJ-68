@@ -1,9 +1,77 @@
 extends Node
 
+#tools related
+const tools_base = [
+	{
+		"name": "Night Vision Googles", 
+		"desc": "Improves vision in the dark.", 
+		"usable": false, 
+		"limit": 0, 
+		"cool": 0, 
+		"icon": "night_vision", 
+		"unlocked": 1
+	},
+	{
+		"name": "Booster Boots", 
+		"desc": "Increase move speed for 5 seconds. 10 seconds cooldown.", 
+		"usable": true, 
+		"limit": -1, 
+		"cool": 10, 
+		"icon": "booster_boots", 
+		"unlocked": 2
+	},
+	{
+		"name": "\"Take-Me-Away\"inator", 
+		"desc": "Has a 50% chance to leave the stage when used. Also has a 50% chance to teleport you to a random spot instead. Can only be used once.", 
+		"usable": true, 
+		"limit": 1, 
+		"cool": 0, 
+		"icon": "take_me_away_inator", 
+		"unlocked": 3
+	},
+	{
+		"name": "AI Gloves", 
+		"desc": "Triples the speed of replacing artworks", 
+		"usable": false, 
+		"limit": 0, 
+		"cool": 0, 
+		"icon": "swift_gloves", 
+		"unlocked": 5
+	},
+	{
+		"name": "Noisy Cricket", 
+		"desc": "Press once to place a cricket on a spot. Hold and press to activate the cricket and alert all security guards to the cricket for 15 seconds. Can only be used once.", 
+		"usable": true, 
+		"limit": 1, 
+		"cool": 0, 
+		"icon": "noisy_cricket", 
+		"unlocked": 7
+	},
+	{
+		"name": "Camo-Suit", 
+		"desc": "Becomes invisible for 3 seconds. 20 seconds cooldown.", 
+		"usable": true, 
+		"limit": 0, 
+		"cool": 20, 
+		"icon": "camo_lens", 
+		"unlocked": 9
+	},
+	{
+		"name": "Time Stopper", 
+		"desc": "Stops the stage timer for 10 seconds. Can be used 3 times.", 
+		"usable": true, 
+		"limit": 3, 
+		"cool": 0, 
+		"icon": "time_stopper", 
+		"unlocked": 10
+	},
+]
+
 #player related
 var score = 0
 var inventory = []
 var total_art = 0
+var art_stolen = 5
 
 var tools = []
 var art = "0"
