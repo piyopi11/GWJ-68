@@ -45,6 +45,7 @@ func setup_canvas () :
 
 func _on_color_pressed (i) :
 	selected_color = Color(colors[i])
+	pressed = false
 
 func _on_color_rect_mouse_enter (node) :
 	focused_node = node
@@ -67,6 +68,7 @@ func _on_color_rect_gui_input (event, node) :
 				pressed = !pressed
 
 func _on_mode_pressed():
+	pressed = false
 	if mode == "single" :
 		mode = "continuous"
 		$root/palette/mode.text = mode

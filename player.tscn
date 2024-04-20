@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://ui/ui_frame.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://ui/back_button.png" type="Texture" id=4]
 [ext_resource path="res://prefab/tool_box.tscn" type="PackedScene" id=5]
 [ext_resource path="res://dotted_borders.png" type="Texture" id=6]
+[ext_resource path="res://prefab/career_screen.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SphereMesh" id=1]
 radius = 0.5
@@ -674,6 +675,9 @@ margin_right = 291.5
 margin_bottom = -17.0
 custom_fonts/font = SubResource( 26 )
 text = "Game Over"
+
+[node name="career_screen" parent="ui" instance=ExtResource( 7 )]
+visible = false
 
 [node name="fps_camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0 )

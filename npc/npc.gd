@@ -3,6 +3,9 @@ extends KinematicBody
 export (String, "A", "B", "C") var type = "A"
 export (String, "static", "path") var movement = "static"
 export (float) var speed = 1.0
+export (String, "painting", "statue", "none") var focus_type = "none"
+export (int) var focus_idx = 0
+
 
 const GREEN_COLOR = Color("#badc58")
 const BLUE_COLOR = Color("#686de0")
@@ -34,6 +37,14 @@ func setup_npc () :
 		"C" :
 			mat.albedo_color = RED_COLOR
 			$mesh/head.mesh.material = mat
+	if focus_type != "none" :
+		var s = GameManager.paintings[focus_idx].sentiment if focus_type == "painting" else GameManager.statues[focus_idx].sentiment
+		if s > 0.7 :
+			chatter = "Simply Astounding"
+		elif s > 0.4 :
+			chatter = "Something feels off"
+		else :
+			chatter = "This has to be a fake"
 
 func _process(_delta):
 	pass

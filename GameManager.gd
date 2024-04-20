@@ -4,12 +4,12 @@ extends Node
 const tools_base = [
 	{
 		"name": "Night Vision Googles", 
-		"desc": "Improves vision in the dark.", 
+		"desc": "Improves vision in the dark. Passive effect.", 
 		"usable": false, 
 		"limit": 0, 
 		"cool": 0, 
 		"icon": "night_vision", 
-		"unlocked": 1
+		"unlocked": 0
 	},
 	{
 		"name": "Booster Boots", 
@@ -18,7 +18,7 @@ const tools_base = [
 		"limit": -1, 
 		"cool": 10, 
 		"icon": "booster_boots", 
-		"unlocked": 2
+		"unlocked": 0
 	},
 	{
 		"name": "\"Take-Me-Away\"inator", 
@@ -27,16 +27,16 @@ const tools_base = [
 		"limit": 1, 
 		"cool": 0, 
 		"icon": "take_me_away_inator", 
-		"unlocked": 3
+		"unlocked": 0
 	},
 	{
 		"name": "AI Gloves", 
-		"desc": "Triples the speed of replacing artworks", 
+		"desc": "Triples the speed of replacing artworks. Passive effect.", 
 		"usable": false, 
 		"limit": 0, 
 		"cool": 0, 
 		"icon": "swift_gloves", 
-		"unlocked": 5
+		"unlocked": 0
 	},
 	{
 		"name": "Noisy Cricket", 
@@ -45,7 +45,7 @@ const tools_base = [
 		"limit": 1, 
 		"cool": 0, 
 		"icon": "noisy_cricket", 
-		"unlocked": 7
+		"unlocked": 0
 	},
 	{
 		"name": "Camo-Suit", 
@@ -54,16 +54,16 @@ const tools_base = [
 		"limit": -1, 
 		"cool": 20, 
 		"icon": "camo_lens", 
-		"unlocked": 9
+		"unlocked": 0
 	},
 	{
 		"name": "Golden Time", 
-		"desc": "Increase heist time by 30 seconds", 
+		"desc": "Increase heist time by 30 seconds. Passive effect.", 
 		"usable": false, 
 		"limit": 0, 
 		"cool": 0, 
 		"icon": "time_stopper", 
-		"unlocked": 10
+		"unlocked": 0
 	},
 ]
 
@@ -78,10 +78,16 @@ var art = "0"
 var bag = []
 var art_limit = 2
 
+var total_heist = 0
+
+var career_data = []
+var tool_used = [0, 0, 0, 0, 0, 0, 0, 0]
+
 #gallery related
 var paintings = []
 var statues = []
 var security_level = 1
+var total_gallery_art = 16
 
 #constraint related
 var day = 0
@@ -94,6 +100,11 @@ var threat_level = 0.0
 #career related
 var game_start = false
 var total_time = 0.0
+
+var best_forgery = ""
+var best_forgery_score = 0.0
+
+var game_over = false
 
 func _ready () :
 	new_game()
@@ -110,6 +121,7 @@ func new_game () :
 	setup_data()
 
 func setup_data () :
+	game_over = false
 	score = 0
 	inventory = []
 	total_art = 0
@@ -124,12 +136,16 @@ func setup_data () :
 	day = 0
 	in_demand = []
 	threat_level = 0.0
+	total_heist = 0
+	career_data = []
+	best_forgery = ""
+	best_forgery_score = 0.0
 
 	for k in Artwork.paintings.keys() :
-		var o = {"data": Artwork.paintings[k].duplicate(true), "sentiment": 0, "forged": false, "key": k}
+		var o = {"data": Artwork.paintings[k].duplicate(true), "sentiment": 1.0, "forged": false, "key": k}
 		paintings.append(o)
 	for k in Artwork.statues.keys() :
-		var o = {"data": Artwork.statues[k].duplicate(true), "sentiment": 0, "forged": false, "key": k}
+		var o = {"data": Artwork.statues[k].duplicate(true), "sentiment": 1.0, "forged": false, "key": k}
 		statues.append(o)
 	randomize_demand()
 	setup_day()
@@ -177,3 +193,6 @@ func delete_inventory (key) :
 			break
 		idx += 1
 	inventory.remove(idx)
+
+func save_career_data (obj) :
+	career_data.append(obj)

@@ -1,0 +1,330 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://dotted_borders.png" type="Texture" id=1]
+[ext_resource path="res://GochiHand-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://prefab/career_screen.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=46]
+size = 72
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=43]
+size = 48
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=45]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=44]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[node name="career_screen" type="Control"]
+margin_right = 800.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 800, 600 )
+script = ExtResource( 3 )
+
+[node name="background2" type="ColorRect" parent="."]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0.701961, 0.682353, 0.611765, 1 )
+
+[node name="frame" type="NinePatchRect" parent="."]
+margin_right = 800.0
+margin_bottom = 600.0
+texture = ExtResource( 1 )
+patch_margin_left = 50
+patch_margin_top = 30
+patch_margin_right = 50
+patch_margin_bottom = 30
+
+[node name="title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -262.5
+margin_top = 25.0
+margin_right = 262.5
+margin_bottom = 111.0
+custom_fonts/font = SubResource( 46 )
+text = "Career Data"
+align = 1
+
+[node name="scroll" type="ScrollContainer" parent="."]
+margin_left = 20.0
+margin_top = 128.0
+margin_right = 780.0
+margin_bottom = 578.0
+rect_min_size = Vector2( 760, 450 )
+
+[node name="rows" type="VBoxContainer" parent="scroll"]
+margin_right = 750.0
+margin_bottom = 628.0
+
+[node name="row_8" type="HBoxContainer" parent="scroll/rows"]
+margin_right = 750.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_8"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Play Time"
+
+[node name="value" type="Label" parent="scroll/rows/row_8"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="row_1" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 62.0
+margin_right = 750.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_1"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Total Heist"
+
+[node name="value" type="Label" parent="scroll/rows/row_1"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="row_10" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 124.0
+margin_right = 750.0
+margin_bottom = 182.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_10"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Total Score"
+
+[node name="value" type="Label" parent="scroll/rows/row_10"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="divider1" type="Control" parent="scroll/rows"]
+margin_top = 186.0
+margin_right = 750.0
+margin_bottom = 186.0
+
+[node name="divider1" type="Line2D" parent="scroll/rows/divider1"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="row_9" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 190.0
+margin_right = 750.0
+margin_bottom = 248.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_9"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Artwork Created"
+
+[node name="value" type="Label" parent="scroll/rows/row_9"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="row_2" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 252.0
+margin_right = 750.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_2"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Artwork Stolen"
+
+[node name="value" type="Label" parent="scroll/rows/row_2"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="row_3" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 314.0
+margin_right = 750.0
+margin_bottom = 372.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_3"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Forgery Accuracy"
+
+[node name="value" type="Label" parent="scroll/rows/row_3"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="row_6" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 376.0
+margin_right = 750.0
+margin_bottom = 434.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_6"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Best Forgery"
+
+[node name="value" type="Label" parent="scroll/rows/row_6"]
+margin_left = 400.0
+margin_top = 9.0
+margin_right = 700.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 45 )
+align = 2
+
+[node name="divider2" type="Control" parent="scroll/rows"]
+margin_top = 438.0
+margin_right = 750.0
+margin_bottom = 438.0
+
+[node name="divider1" type="Line2D" parent="scroll/rows/divider2"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="row_4" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 442.0
+margin_right = 750.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_4"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Gadgets Used"
+
+[node name="value" type="Label" parent="scroll/rows/row_4"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2
+
+[node name="row_5" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 504.0
+margin_right = 750.0
+margin_bottom = 562.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_5"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Favorite Gadget"
+
+[node name="value" type="Label" parent="scroll/rows/row_5"]
+margin_left = 400.0
+margin_top = 9.0
+margin_right = 700.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 44 )
+align = 2
+
+[node name="divider3" type="Control" parent="scroll/rows"]
+margin_top = 566.0
+margin_right = 750.0
+margin_bottom = 566.0
+
+[node name="divider1" type="Line2D" parent="scroll/rows/divider3"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="row_7" type="HBoxContainer" parent="scroll/rows"]
+margin_top = 570.0
+margin_right = 750.0
+margin_bottom = 628.0
+rect_min_size = Vector2( 750, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll/rows/row_7"]
+margin_right = 400.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Security Alerted"
+
+[node name="value" type="Label" parent="scroll/rows/row_7"]
+margin_left = 400.0
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "0"
+align = 2

@@ -41,6 +41,8 @@ var stealth = false
 export (NodePath) var cricket_path
 onready var cricket = get_node(cricket_path)
 
+var career_screen = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -98,12 +100,25 @@ func perform_interaction (delta) :
 		interacting = false
 
 func _input(event) :
-	if result_screen == false :
+	if result_screen == false && GameManager.game_over == false && is_first_person == true :
 		check_mouse_movement(event)
 	elif result_screen == true && result_complete == true :
 		if event is InputEventMouseButton || event is InputEventKey :
-			GameManager.setup_day()
-			SceneManager.change_scene("res://home_menu.tscn")
+			if GameManager.art_stolen < GameManager.total_gallery_art :
+				GameManager.setup_day()
+				SceneManager.change_scene("res://home_menu.tscn")
+			else :
+				SceneManager.change_scene("res://ending_scene.tscn")
+	elif GameManager.game_over == true && $ui/game_over_screen.visible == true :
+		if event is InputEventMouseButton || event is InputEventKey :
+			$ui/career_screen.setup_data()
+			$ui/career_screen.visible = true
+			$ui/game_over_screen.visible = false
+			yield(get_tree().create_timer(1.0), "timeout")
+			career_screen = true
+	elif GameManager.game_over == true && career_screen == true && $ui/career_screen.visible == true :
+		if event is InputEventMouseButton || event is InputEventKey :
+			SceneManager.change_scene("res://start_menu.tscn")
 
 func check_raycast() :
 	if is_first_person == false :
@@ -153,7 +168,7 @@ func check_input(delta) :
 		if interacting == false :
 			#check sprinting first 
 			if Input.is_action_pressed("ui_sprinting") :
-				sprint_modifier = 1.5
+				sprint_modifier = 1.2
 			else :
 				sprint_modifier = 1.0
 			#movement block
@@ -174,33 +189,45 @@ func check_input(delta) :
 			else :
 				move_z = 0.0
 			#tool block
-			if Input.is_action_pressed("ui_tool_1") && mode == "heist" :
+			if Input.is_action_pressed("ui_tool_1") && mode == "heist" && active_tool[0] == false :
 				if tool_lock == 0 :
 					tool_lock = 1
 				tool_hold += delta
-			elif Input.is_action_pressed("ui_tool_2") && mode == "heist" :
+				if tool_hold > 1.0 :
+					process_hold(0)
+					tool_lock = 0
+					tool_hold = 0.0
+			elif Input.is_action_pressed("ui_tool_2") && mode == "heist" && active_tool[1] == false :
 				if tool_lock == 0 :
 					tool_lock = 2
 				tool_hold += delta
-			elif Input.is_action_pressed("ui_tool_3") && mode == "heist" :
+				if tool_hold > 1.0 :
+					process_hold(1)
+					tool_lock = 0
+					tool_hold = 0.0
+			elif Input.is_action_pressed("ui_tool_3") && mode == "heist" && active_tool[2] == false :
 				if tool_lock == 0 :
 					tool_lock = 3
 				tool_hold += delta
-			elif Input.is_action_just_released("ui_tool_1") && mode =="heist" && tool_lock == 1 :
+				if tool_hold > 1.0 :
+					process_hold(2)
+					tool_lock = 0
+					tool_hold = 0.0
+			elif Input.is_action_just_released("ui_tool_1") && mode =="heist" && tool_lock == 1 && active_tool[0] == false:
 				if tool_hold >= 0.3 :
 					process_hold(0)
 				else :
 					process_tap(0)
 				tool_lock = 0
 				tool_hold = 0.0
-			elif Input.is_action_just_released("ui_tool_2") && mode =="heist" && tool_lock == 2 :
+			elif Input.is_action_just_released("ui_tool_2") && mode =="heist" && tool_lock == 2 && active_tool[1] == false :
 				if tool_hold >= 0.3 :
 					process_hold(1)
 				else :
 					process_tap(1)
 				tool_lock = 0
 				tool_hold = 0.0
-			elif Input.is_action_just_released("ui_tool_3") && mode =="heist" && tool_lock == 3 :
+			elif Input.is_action_just_released("ui_tool_3") && mode =="heist" && tool_lock == 3 && active_tool[0] == false :
 				if tool_hold >= 0.3 :
 					process_hold(2)
 				else :
@@ -259,12 +286,14 @@ func process_tap (idx) :
 	if active_tool[idx]==false && tool_cooldown[idx]==0.0 && tool_use[idx] != 0:
 		match (GameManager.tools[idx]) :
 			1 :
+				LevelManager.tool_used += 1
 				$ui/tool_box.get_node("tool{0}".format([idx+1])).value = float(GameManager.tools_base[GameManager.tools[idx]].cool)
 				speed *= 2.0
 				active_tool[idx]=true
 				tool_duration[idx]=5.0
 				tool_use[idx]-=1
 			2 :
+				LevelManager.tool_used += 1
 				active_tool[idx]=true
 				var r = int(rand_range(0, 2))
 				if r == 0 :
@@ -277,6 +306,7 @@ func process_tap (idx) :
 				cricket.translation = self.translation
 				cricket.placed = true
 			5 :
+				LevelManager.tool_used += 1
 				$ui/tool_box.get_node("tool{0}".format([idx+1])).value = float(GameManager.tools_base[GameManager.tools[idx]].cool)
 				stealth = true
 				active_tool[idx]=true
@@ -288,6 +318,7 @@ func process_hold (idx) :
 	if active_tool[idx]==false && tool_cooldown[idx]==0.0 && tool_use[idx] != 0 :
 		match (GameManager.tools[idx]) :
 			4 :
+				LevelManager.tool_used += 1
 				if cricket.placed == true :
 					active_tool[idx]=true
 					cricket.activate()
@@ -402,11 +433,21 @@ func end_stage () :
 	$ui/result_screen/score_row/value.text = str(LevelManager.total_score)
 	for n in LevelManager.art_name :
 		$ui/result_screen/art_row/value.text += "[" +n+"] "
-	$ui/result_screen/forge_row/value.text = "{0}%".format([int(LevelManager.likeness*100)])
+	$ui/result_screen/forge_row/value.text = "{0}%".format([int((LevelManager.likeness/max(LevelManager.art_taken.size(), 1))*100)])
 	$ui/result_screen/rank.text = LevelManager.stage_rank
 	if LevelManager.art_taken.size() == 0 :
 		$ui/result_screen/title.text = "Escaped"
 	$ui/result_screen.visible = true
+	GameManager.save_career_data({
+		"day": GameManager.day, 
+		"time": LevelManager.max_time - LevelManager.time, 
+		"rank": LevelManager.stage_rank, 
+		"artwork_stolen": LevelManager.art_name.duplicate(true), 
+		"tool_used": LevelManager.tool_used, 
+		"security_alerted": LevelManager.alert_time, 
+		"score": LevelManager.total_score, 
+		"forgery": int((LevelManager.likeness/max(LevelManager.art_taken.size(), 1))*100)
+	})
 	yield(get_tree(), "idle_frame")
 	result_screen = true
 	yield(get_tree().create_timer(1.0), "timeout")
@@ -416,5 +457,16 @@ func end_stage () :
 #	SceneManager.change_scene("res://home_menu.tscn")
 
 func trigger_game_over () :
+	GameManager.save_career_data({
+		"day": GameManager.day, 
+		"time": LevelManager.max_time - LevelManager.time, 
+		"rank": LevelManager.stage_rank, 
+		"artwork_stolen": LevelManager.art_name.duplicate(true), 
+		"tool_used": LevelManager.tool_used, 
+		"security_alerted": LevelManager.alert_time, 
+		"score": LevelManager.total_score, 
+		"forgery": int((LevelManager.likeness/max(LevelManager.art_taken.size(), 1))*100)
+	})
 	LevelManager.level_start = false
+	GameManager.game_over = true
 	$ui/game_over_screen.visible = true

@@ -464,9 +464,13 @@ idx = 7
 
 [node name="npc_a" parent="crowds" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.6, 0, 16 )
+focus_type = "painting"
+focus_idx = 3
 
 [node name="npc_a2" parent="crowds" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6, 0, 16 )
+focus_type = "painting"
+focus_idx = 3
 
 [node name="npc_a3" parent="crowds" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, -8 )

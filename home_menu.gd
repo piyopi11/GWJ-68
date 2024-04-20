@@ -173,6 +173,8 @@ func _on_heist_ok_pressed() :
 		$heist_preparation/artwork.visible = false
 		$heist_preparation/tools.visible = true
 	elif GameManager.bag.size() > 0 && $heist_preparation/tools.visible :
+		for i in GameManager.tools :
+			GameManager.tool_used[i] += 1
 		SceneManager.change_scene("res://art_gallery_night.tscn")
 
 func _on_tool_mouse_entered(arg=0):
@@ -182,7 +184,7 @@ func _on_tool_mouse_entered(arg=0):
 		$heist_preparation/tools/frame2/desc.text = t.desc
 	else :
 		$heist_preparation/tools/frame2/desc.text = "Unlocked after stealing {0} more {1}".format([t.unlocked - GameManager.art_stolen, "artwork" if t.unlocked - GameManager.art_stolen == 1 else "artworks"])
-	$heist_preparation/tools/frame2/tool_box/icon.texture = get_node("heist_preparation/tools/frame/tool{0}".format([arg+1])).texture
+	$heist_preparation/tools/frame2/tool_box/icon.texture = load("res://tools/{0}.png".format([t.icon]))
 	$heist_preparation/tools/frame2/help.visible = false
 	$heist_preparation/tools/frame2/name.visible = true
 	$heist_preparation/tools/frame2/desc.visible = true
@@ -213,3 +215,13 @@ func _on_tool_gui_input(event, arg=0):
 					if GameManager.tools.size() < 3 :
 						GameManager.tools.append(arg)
 						refresh_tool()
+
+func _on_career_button_pressed():
+	$career_screen.can_update = true
+	$career_screen.setup_data()
+	$career_screen.visible = true
+
+
+func _on_career_cancel_pressed():
+	$career_screen.can_update = false
+	$career_screen.visible = false

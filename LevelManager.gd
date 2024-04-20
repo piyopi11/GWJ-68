@@ -3,6 +3,7 @@ extends Node
 var level_start = false
 
 var time : float = 0.0
+var max_time : float = 0.0
 var alert_time = 0
 var alert_level = 0
 var time_node = null
@@ -28,11 +29,13 @@ func setup_level () :
 	time = 60.0
 	if GameManager.tools.has(6) :
 		time += 30.0
+	max_time = time
 	alert_time = 0
 	tool_used = 0
 	art_name = []
 	art_taken = []
 	to_compare = []
+	likeness = 0.0
 	alert_level = GameManager.threat_level
 
 func _process(delta):
@@ -70,7 +73,6 @@ func calculate_score () :
 	stage_rank = "S" if total_score >= 1000 else "A" if total_score >= 850 else "B" if total_score >= 600 else "C" if total_score >= 300 else "D" if total_score > 0 else "F"
 
 func calculate_painting_likeness (data) :
-	likeness = 0.0
 	
 	var s1 : Array = data
 	var s2 : Array = Artwork.paintings[GameManager.paintings[int(art_taken.back().k)].key].colors
@@ -95,14 +97,17 @@ func calculate_painting_likeness (data) :
 			matrix_w += w / 16.0
 		else :
 			matrix_w += (0.0)
-	likeness = matrix_w / 16.0
+	if GameManager.best_forgery_score < matrix_w/16.0 :
+		GameManager.best_forgery_score = matrix_w/16.0
+		GameManager.best_forgery = Artwork.paintings[GameManager.paintings[int(art_taken.back().k)].key].name
+	GameManager.paintings[int(art_taken.back().k)].sentiment = matrix_w/16.0
+	likeness += matrix_w / 16.0
 #				o1.append(s1[x1])
 #				o2.append(s2[x1])
 #			matrix_a.append(o1)
 #			matrix_b.append(o2)
 
 func calculate_statue_likeness (data) :
-	likeness = 0.0
 	
 	var s1 : Array = data
 	var s2 : Array = Artwork.statues[GameManager.statues[int(art_taken.back().k)].key].data
@@ -125,4 +130,8 @@ func calculate_statue_likeness (data) :
 			if t_check && p_check :
 				w += 1.0
 				break
-	likeness = (w / float(s1.size())) * margin
+	if GameManager.best_forgery_score < (w / float(s1.size())) * margin :
+		GameManager.best_forgery_score = (w / float(s1.size())) * margin
+		GameManager.best_forgery = Artwork.statues[GameManager.statues[int(art_taken.back().k)].key].name
+	GameManager.statues[int(art_taken.back().k)].sentiment = (w / float(s1.size())) * margin
+	likeness += (w / float(s1.size())) * margin
