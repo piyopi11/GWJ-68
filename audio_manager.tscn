@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://PeriTune_Alleyway_loop.ogg" type="AudioStream" id=1]
 [ext_resource path="res://audio_manager.gd" type="Script" id=2]
+[ext_resource path="res://sounds/ok_a_01.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds/cancel_a_01.wav" type="AudioStream" id=4]
+[ext_resource path="res://sounds/select_001_1.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/FreeSoundLibrary(Spanac) Whistle.wav" type="AudioStream" id=6]
 
 [node name="audio_manager" type="Spatial"]
 script = ExtResource( 2 )
@@ -9,4 +13,21 @@ script = ExtResource( 2 )
 [node name="bgm" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 volume_db = -15.0
-autoplay = true
+bus = "BGM"
+
+[node name="ok" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="cancel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "SFX"
+
+[node name="alert" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -8.0
+bus = "SFX"

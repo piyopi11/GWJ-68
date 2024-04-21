@@ -5,16 +5,37 @@ const INVENTORYBOX = preload("res://prefab/inventory_box.tscn")
 var inventories = []
 var selected_key = ""
 
+var tut = ""
+
 func _ready():
 	AudioManager.change_bgm("res://PeriTune_Alleyway_loop.ogg")
 	AudioManager.play_bgm()
 	$root_control/time_space/day.text = "DAY {0}".format([GameManager.day])
 	setup_in_demand()
 	setup_inventory()
+	if GameManager.guide[0] == false :
+		tut = "home"
+		show_guide()
+
+func show_guide () : 
+	var t = GuideManager.get_text(tut)
+	if t == "fin" :
+		$tutorial.visible = false
+		GameManager.guide[0] == false
+	else :
+		$tutorial/frame/content.text = t
+		$tutorial.visible = true
+
+func _on_ok_pressed():
+	AudioManager.ok()
+	GuideManager.next_guide(tut)
+	show_guide()
 
 func reset_inventory () :
 	inventories = []
 	for c in $inventory_control/inventory_box/scroll/content.get_children() :
+		c.queue_free()
+	for c in $heist_preparation/artwork/inventory_frame/content/grid.get_children() :
 		c.queue_free()
 
 func setup_inventory () :
@@ -52,28 +73,41 @@ func setup_in_demand() :
 	$root_control/target_frame/refreshes.text = "Refreshes in {0} {1}".format([d_l, "day" if (d_l) == 1 else "days"])
 
 func _on_scout_button_pressed():
+	AudioManager.ok()
 	SceneManager.change_scene("res://art_gallery_day.tscn")
 
 func _on_paint_button_pressed():
+	AudioManager.ok()
 	SceneManager.change_scene("res://make_painting.tscn")
 
 func _on_statue_button_pressed():
+	AudioManager.ok()
 	SceneManager.change_scene("res://make_sculpture.tscn")
 
 func _on_infiltrate_button_pressed():
 #	SceneManager.change_scene("res://art_gallery_night.tscn")
+	AudioManager.ok()
 	$root_control.visible = false
 	$heist_preparation.visible = true
+	if GameManager.guide[2] == false :
+		tut = "heist_prep"
+		show_guide()
 
 func _on_cancel_pressed():
+	AudioManager.cancel()
 	$inventory_control.visible = false
 	$root_control.visible = true
 
 func _on_inventory_button_pressed():
+	AudioManager.ok()
 	$root_control.visible = false
 	$inventory_control.visible = true
+	if GameManager.guide[7] == false :
+		tut = "inventory"
+		show_guide()
 
-func _on_prepare_inventory_box_pressed (key, node) : 
+func _on_prepare_inventory_box_pressed (key, node) :
+	AudioManager.ok() 
 	node.select_item()
 	refresh_bag()
 
@@ -92,6 +126,7 @@ func refresh_bag () :
 		$heist_preparation/artwork/bag_frame/content/rows.add_child(o)
 
 func _on_inventory_box_pressed (key) :
+	AudioManager.ok()
 	selected_key = key
 	var i = GameManager.get_inventory(key)
 	if i.type == "statue":
@@ -134,28 +169,33 @@ func _on_inventory_box_pressed (key) :
 		$inventory_control/paint_detail.visible = true
 
 func _on_cancel_3d_pressed():
+	AudioManager.cancel()
 	$inventory_control/statue_detail.visible = false
 	for c in $model_3d/root/mesh_group.get_children() :
 		c.queue_free()
 
 func _on_trash_3d_pressed():
+	AudioManager.cancel()
 	GameManager.delete_inventory(selected_key)
 	reset_inventory()
 	setup_inventory()
 	_on_cancel_3d_pressed()
 
 func _on_cancel_2d_pressed():
+	AudioManager.cancel()
 	$inventory_control/paint_detail.visible = false
 	for c in $inventory_control/paint_detail/frame/canvas.get_children() :
 		c.queue_free()
 
 func _on_trash_2d_pressed():
+	AudioManager.cancel()
 	GameManager.delete_inventory(selected_key)
 	reset_inventory()
 	setup_inventory()
 	_on_cancel_2d_pressed()
 
 func _on_heist_cancel_pressed():
+	AudioManager.cancel()
 	if $heist_preparation/tools.visible == true :
 		$heist_preparation/tools.visible = false 
 		$heist_preparation/artwork.visible = true
@@ -168,16 +208,21 @@ func _on_heist_cancel_pressed():
 		$root_control.visible = true
 
 func _on_heist_ok_pressed() :
+	AudioManager.ok()
 	if GameManager.bag.size() > 0 && $heist_preparation/artwork.visible == true :
 		refresh_tool()
 		$heist_preparation/artwork.visible = false
 		$heist_preparation/tools.visible = true
+		if GameManager.guide[3] == false :
+			tut = "tool_prep"
+			show_guide()
 	elif GameManager.bag.size() > 0 && $heist_preparation/tools.visible :
 		for i in GameManager.tools :
 			GameManager.tool_used[i] += 1
 		SceneManager.change_scene("res://art_gallery_night.tscn")
 
 func _on_tool_mouse_entered(arg=0):
+	AudioManager.select()
 	var t = GameManager.tools_base[arg]
 	$heist_preparation/tools/frame2/name.text = t.name
 	if GameManager.art_stolen >= t.unlocked :
@@ -209,19 +254,25 @@ func _on_tool_gui_input(event, arg=0):
 		if event.pressed == true && event.button_index == BUTTON_LEFT :
 			if GameManager.art_stolen >= GameManager.tools_base[arg].unlocked :
 				if GameManager.tools.has(arg) :
+					AudioManager.cancel()
 					GameManager.tools.erase(arg)
 					refresh_tool()
 				else :
 					if GameManager.tools.size() < 3 :
+						AudioManager.ok()
 						GameManager.tools.append(arg)
 						refresh_tool()
+			else :
+				AudioManager.cancel()
 
 func _on_career_button_pressed():
+	AudioManager.ok()
 	$career_screen.can_update = true
 	$career_screen.setup_data()
 	$career_screen.visible = true
 
-
 func _on_career_cancel_pressed():
+	AudioManager.cancel()
 	$career_screen.can_update = false
 	$career_screen.visible = false
+

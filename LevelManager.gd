@@ -68,7 +68,12 @@ func calculate_score () :
 			k = GameManager.statues[int(art_taken.back().k)].key
 		if GameManager.in_demand.has(k) :
 			b *= 2.0
+			GameManager.bonus_triggered += 1
 	total_score = b
+	#adjust threat level
+	GameManager.threat_level += 0.125 * art_taken.size()
+	GameManager.threat_level += 0.05 * int(alert_time)
+	GameManager.threat_level += (1.0 - likeness) * 0.02 
 	
 	stage_rank = "S" if total_score >= 1000 else "A" if total_score >= 850 else "B" if total_score >= 600 else "C" if total_score >= 300 else "D" if total_score > 0 else "F"
 

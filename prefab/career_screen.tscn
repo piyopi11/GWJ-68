@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://dotted_borders.png" type="Texture" id=1]
 [ext_resource path="res://GochiHand-Regular.ttf" type="DynamicFontData" id=2]
@@ -23,6 +23,12 @@ outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=44]
+size = 32
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=47]
 size = 32
 outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
@@ -328,3 +334,509 @@ rect_min_size = Vector2( 300, 0 )
 custom_fonts/font = SubResource( 43 )
 text = "0"
 align = 2
+
+[node name="scroll2" type="ScrollContainer" parent="."]
+visible = false
+margin_left = 20.0
+margin_top = 128.0
+margin_right = 780.0
+margin_bottom = 578.0
+rect_min_size = Vector2( 760, 450 )
+
+[node name="rows" type="VBoxContainer" parent="scroll2"]
+margin_right = 700.0
+margin_bottom = 1637.0
+
+[node name="speed_achieve" type="VBoxContainer" parent="scroll2/rows"]
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/speed_achieve"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Speedrunner"
+
+[node name="desc" type="Label" parent="scroll2/rows/speed_achieve"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Complete the game in 30 minutes or less"
+autowrap = true
+
+[node name="divider1" type="Control" parent="scroll2/rows/speed_achieve"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/speed_achieve/divider1"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="speed_achieve2" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 101.0
+margin_right = 700.0
+margin_bottom = 198.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/speed_achieve2"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Not Billy Mitchell"
+
+[node name="desc" type="Label" parent="scroll2/rows/speed_achieve2"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Complete the game in 20 minutes or less"
+autowrap = true
+
+[node name="divider1" type="Control" parent="scroll2/rows/speed_achieve2"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/speed_achieve2/divider1"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="speed_achieve3" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 202.0
+margin_right = 700.0
+margin_bottom = 341.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/speed_achieve3"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "No Game, No Life"
+
+[node name="desc" type="Label" parent="scroll2/rows/speed_achieve3"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Complete the game in 30 minutes or less with at least 8000 total score (or 8 S ranks)"
+autowrap = true
+
+[node name="divider1" type="Control" parent="scroll2/rows/speed_achieve3"]
+margin_top = 139.0
+margin_right = 700.0
+margin_bottom = 139.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/speed_achieve3/divider1"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="alert_achieve" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 345.0
+margin_right = 700.0
+margin_bottom = 442.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/alert_achieve"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Master Thief"
+
+[node name="desc" type="Label" parent="scroll2/rows/alert_achieve"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Complete the game with no alerts triggered"
+autowrap = true
+
+[node name="divider2" type="Control" parent="scroll2/rows/alert_achieve"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/alert_achieve/divider2"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="alert_achieve2" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 446.0
+margin_right = 700.0
+margin_bottom = 543.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/alert_achieve2"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Bear-Footed"
+
+[node name="desc" type="Label" parent="scroll2/rows/alert_achieve2"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Complete the game with 20 alerts triggered"
+autowrap = true
+
+[node name="divider2" type="Control" parent="scroll2/rows/alert_achieve2"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/alert_achieve2/divider2"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 547.0
+margin_right = 700.0
+margin_bottom = 686.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Double-O Seven"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Complete the game using each gadget at least once"
+autowrap = true
+
+[node name="divider3" type="Control" parent="scroll2/rows/tool_achieve"]
+margin_top = 139.0
+margin_right = 700.0
+margin_bottom = 139.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve/divider3"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve2" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 690.0
+margin_right = 700.0
+margin_bottom = 787.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve2"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Codename Zero"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve2"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the Night Vision Googles at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve2"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve2/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve3" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 791.0
+margin_right = 700.0
+margin_bottom = 888.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve3"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "It's Not A Hoverboard"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve3"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the Booster Boots at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve3"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve3/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve4" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 892.0
+margin_right = 700.0
+margin_bottom = 989.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve4"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Beam Me Up, Scotty!"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve4"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the \"Take-Me-Away\"inator at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve4"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve4/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve5" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 993.0
+margin_right = 700.0
+margin_bottom = 1090.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve5"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "The Future Is Today"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve5"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the AI Gloves at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve5"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve5/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve6" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 1094.0
+margin_right = 700.0
+margin_bottom = 1191.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve6"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Don't Point That At Me!"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve6"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the Noisy Cricket at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve6"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve6/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve7" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 1195.0
+margin_right = 700.0
+margin_bottom = 1292.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve7"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Invisi-bruh!"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve7"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the Camo-Suit at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve7"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve7/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="tool_achieve8" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 1296.0
+margin_right = 700.0
+margin_bottom = 1393.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/tool_achieve8"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Got Time?"
+
+[node name="desc" type="Label" parent="scroll2/rows/tool_achieve8"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Use the Golden Time at least 3 times"
+autowrap = true
+
+[node name="divider4" type="Control" parent="scroll2/rows/tool_achieve8"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/tool_achieve8/divider4"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="forgery_achieve" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 1397.0
+margin_right = 700.0
+margin_bottom = 1536.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/forgery_achieve"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Perhaps Picasso?"
+
+[node name="desc" type="Label" parent="scroll2/rows/forgery_achieve"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 139.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Achieve an average of at least 70% in forgery percentage total score"
+autowrap = true
+
+[node name="divider5" type="Control" parent="scroll2/rows/forgery_achieve"]
+margin_top = 139.0
+margin_right = 700.0
+margin_bottom = 139.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/forgery_achieve/divider5"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )
+
+[node name="forgery_achieve2" type="VBoxContainer" parent="scroll2/rows"]
+margin_top = 1540.0
+margin_right = 700.0
+margin_bottom = 1637.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/separation = 0
+
+[node name="label" type="Label" parent="scroll2/rows/forgery_achieve2"]
+margin_right = 700.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 400, 0 )
+custom_fonts/font = SubResource( 43 )
+text = "Like Mike"
+
+[node name="desc" type="Label" parent="scroll2/rows/forgery_achieve2"]
+margin_top = 58.0
+margin_right = 700.0
+margin_bottom = 97.0
+rect_min_size = Vector2( 300, 0 )
+custom_fonts/font = SubResource( 47 )
+text = "Achieve 100% in forgery percentage total score"
+autowrap = true
+
+[node name="divider5" type="Control" parent="scroll2/rows/forgery_achieve2"]
+margin_top = 97.0
+margin_right = 700.0
+margin_bottom = 97.0
+
+[node name="divider1" type="Line2D" parent="scroll2/rows/forgery_achieve2/divider5"]
+points = PoolVector2Array( 0, 0, 720, 0 )
+width = 4.0
+default_color = Color( 0, 0, 0, 1 )

@@ -11,12 +11,31 @@ var mock_data = [
 
 var statue_name = ""
 
+var tut = ""
+
 func _ready():
 	AudioManager.change_bgm("res://PerituneMaterial_Bustling_Village_loop.ogg")
 	AudioManager.play_bgm()
 	statue_name = "New Statue"
 	load_data()
+	if GameManager.guide[6] == false :
+		tut = "make_statue"
+		show_guide ()
 
+func show_guide () : 
+	var t = GuideManager.get_text(tut)
+	if t == "fin" :
+		$ui/tutorial.visible = false
+		GameManager.guide[0] == false
+	else :
+		$ui/tutorial/frame/content.text = t
+		$ui/tutorial.visible = true
+
+func _on_ok_pressed():
+	AudioManager.ok()
+	GuideManager.next_guide(tut)
+	show_guide()
+	
 func load_data () :
 	for d in mock_data :
 		var m = MeshInstance.new()
@@ -60,30 +79,40 @@ func add_mesh (type, m) :
 
 func _on_add_cube_pressed():
 	if meshes.size() < 8 :
+		AudioManager.ok()
 		var m = MeshInstance.new()
 		m.mesh = CubeMesh.new()
 		m.mesh.size= Vector3(2.0, 2.0, 2.0)
 		m.translate(Vector3(0.0, 1.0, 0.0))
 		add_mesh("Cube", m)
+	else :
+		AudioManager.cancel()
 
 func _on_add_cone_pressed():
 	if meshes.size() < 8 :
+		AudioManager.ok()
 		var m = MeshInstance.new()
 		m.mesh = PrismMesh.new()
 		m.mesh.size= Vector3(2.0, 2.0, 2.0)
 		m.translate(Vector3(0.0, 1.0, 0.0))
 		add_mesh("Prism", m)
+	else :
+		AudioManager.cancel()
 
 func _on_add_sphere_pressed():
 	if meshes.size() < 8 :
+		AudioManager.ok()
 		var m = MeshInstance.new()
 		m.mesh = SphereMesh.new()
 		m.mesh.radius = 1.0
 		m.mesh.height = 2.0
 		m.translate(Vector3(0.0, 1.0, 0.0))
 		add_mesh("Sphere", m)
+	else :
+		AudioManager.cancel()
 
 func _on_move_mesh(arg):
+	AudioManager.select()
 	if selected_mesh != null :
 		var i = selected_mesh.translation
 		match (arg) :
@@ -102,6 +131,7 @@ func _on_move_mesh(arg):
 		selected_mesh.translation = i
 
 func _on_mesh_list_selected (arg) :
+	AudioManager.select()
 	change_selected_mesh(arg)
 
 func _on_rotate_left_pressed():
@@ -109,6 +139,7 @@ func _on_rotate_left_pressed():
 
 func _on_delete_pressed():
 	if selected_mesh != null :
+		AudioManager.ok()
 		var i = meshes.find(selected_mesh)
 		$ui/root/scroll/mesh_list.remove_child($ui/root/scroll/mesh_list.get_child(i))
 		meshes.erase(selected_mesh)
@@ -117,6 +148,8 @@ func _on_delete_pressed():
 			change_selected_mesh(meshes.back())
 		else :
 			selected_mesh = null
+	else :
+		AudioManager.cancel()
 
 func _on_rotate_left_toggled(button_pressed):
 	rotate_deg = 1.0 if button_pressed else 0.0
@@ -140,6 +173,7 @@ func _on_rotate_right_gui_input(event):
 			rotate_deg = 0.0
 
 func _on_save_pressed():
+	AudioManager.ok()
 	statue_name = $ui/root/save_dialog/name_edit.text
 	if statue_name == "" :
 		statue_name = "New Statue"
@@ -147,9 +181,11 @@ func _on_save_pressed():
 	$ui/root/save_dialog.visible = true
 
 func _on_cancel_pressed():
+	AudioManager.cancel()
 	SceneManager.change_scene("res://home_menu.tscn")
 
 func _on_save_ok_pressed():
+	AudioManager.ok()
 	statue_name = $ui/root/save_dialog/name_edit.text
 	if statue_name == "" :
 		statue_name = "New Statue"
@@ -175,4 +211,5 @@ func _on_save_ok_pressed():
 	SceneManager.change_scene("res://home_menu.tscn")
 
 func _on_save_cancel_pressed():
+	AudioManager.cancel()
 	$ui/root/save_dialog.visible = false

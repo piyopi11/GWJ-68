@@ -92,9 +92,8 @@ func check_target () :
 	if c_x && c_z :
 		translation.y = 0.0
 		if mode == MODE.RETURNING && $nav_agent.is_navigation_finished() :
-			stop_moving()
 			if initial_mode == MODE.PATROL :
-				patrol_index = 0
+				patrol_index = -1
 				move_speed = 5.0
 				setup_movement()
 			mode = initial_mode
@@ -147,6 +146,7 @@ func setup_movement () :
 		is_moving = true
 
 func setup_chase () :
+	AudioManager.alert()
 	LevelManager.alert_time += 1
 	is_moving = false
 	move_speed = 10.0

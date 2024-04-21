@@ -10,8 +10,8 @@ var selected_box = false
 signal selected
 
 const EMPTY = preload("res://ui/ui_frame.png")
-const ART = preload("res://ui/forge_painting.png")
-const STATUE = preload("res://ui/forge_statue.png")
+const ART = preload("res://ui/painting.png")
+const STATUE = preload("res://ui/statue.png")
 
 func setup_box () :
 	$name.text = _name

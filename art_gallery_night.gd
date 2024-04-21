@@ -2,8 +2,14 @@ extends Spatial
 
 var map
 
+var tut = ""
+
 func _ready():
 	AudioManager.stop_bgm()
+	if GameManager.threat_level < 3.0 :
+		$cop/cop2.queue_free()
+	if GameManager.threat_level < 2.0 :
+		$cop/cop3.queue_free()
 	$player.mode = "heist"
 	$player.speed = 10.0
 	$player.can_interact = true
@@ -17,9 +23,32 @@ func _ready():
 	LevelManager.time_node = $player.get_node("ui/time_counter")
 	LevelManager.player = $player
 	call_deferred("setup_navserver")
-	LevelManager.level_start = true
-	for c in $cop.get_children() :
-		c.start_cop()
+	if GameManager.guide[4] == false :
+		tut = "heist"
+		$player.block = true
+		show_guide()
+	else :
+		LevelManager.level_start = true
+		for c in $cop.get_children() :
+			c.start_cop()
+
+func show_guide () : 
+	var t = GuideManager.get_text(tut)
+	if t == "fin" :
+		$tutorial/tutorial.visible = false
+		LevelManager.level_start = true
+		for c in $cop.get_children() :
+			c.start_cop()
+		$player.block = false
+		GameManager.guide[0] == false
+	else :
+		$tutorial/tutorial/frame/content.text = t
+		$tutorial/tutorial.visible = true
+
+func _on_ok_pressed():
+	AudioManager.ok()
+	GuideManager.next_guide(tut)
+	show_guide()
 
 func setup_navserver():
 	map = NavigationServer.map_create()

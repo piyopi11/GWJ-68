@@ -5,6 +5,7 @@ export (String, "static", "path") var movement = "static"
 export (float) var speed = 1.0
 export (String, "painting", "statue", "none") var focus_type = "none"
 export (int) var focus_idx = 0
+export (String) var override_color = ""
 
 
 const GREEN_COLOR = Color("#badc58")
@@ -37,6 +38,8 @@ func setup_npc () :
 		"C" :
 			mat.albedo_color = RED_COLOR
 			$mesh/head.mesh.material = mat
+	if override_color != "" :
+		mat.albedo_color = Color(override_color)
 	if focus_type != "none" :
 		var s = GameManager.paintings[focus_idx].sentiment if focus_type == "painting" else GameManager.statues[focus_idx].sentiment
 		if s > 0.7 :

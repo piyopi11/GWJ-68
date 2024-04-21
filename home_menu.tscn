@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://home_menu.gd" type="Script" id=1]
 [ext_resource path="res://dotted_borders.png" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://tools/time_stopper.png" type="Texture" id=20]
 [ext_resource path="res://ui/circle_frame.png" type="Texture" id=21]
 [ext_resource path="res://prefab/career_screen.gd" type="Script" id=22]
+[ext_resource path="res://ui/career.png" type="Texture" id=23]
 
 [sub_resource type="SpatialMaterial" id=23]
 albedo_texture = ExtResource( 12 )
@@ -95,6 +96,24 @@ modulate_color = Color( 1, 0.984314, 0.870588, 1 )
 
 [sub_resource type="StyleBoxTexture" id=12]
 texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=47]
+texture = ExtResource( 23 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=48]
+texture = ExtResource( 23 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=49]
+texture = ExtResource( 23 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=50]
+texture = ExtResource( 23 )
 region_rect = Rect2( 0, 0, 300, 300 )
 
 [sub_resource type="DynamicFont" id=14]
@@ -244,6 +263,23 @@ outline_size = 5
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 8 )
 
+[sub_resource type="DynamicFont" id=53]
+size = 36
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 8 )
+
+[sub_resource type="StyleBoxTexture" id=51]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=52]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
 [node name="root" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -368,10 +404,10 @@ margin_top = 160.0
 margin_right = 256.0
 margin_bottom = 360.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 11 )
-custom_styles/pressed = SubResource( 11 )
-custom_styles/focus = SubResource( 12 )
-custom_styles/normal = SubResource( 12 )
+custom_styles/hover = SubResource( 47 )
+custom_styles/pressed = SubResource( 48 )
+custom_styles/focus = SubResource( 49 )
+custom_styles/normal = SubResource( 50 )
 
 [node name="beaver_space" type="Control" parent="root_control"]
 margin_left = 592.0
@@ -380,8 +416,8 @@ margin_right = 632.0
 margin_bottom = 256.0
 
 [node name="target_frame" type="NinePatchRect" parent="root_control"]
-margin_left = 400.0
-margin_right = 830.0
+margin_left = 389.0
+margin_right = 819.0
 margin_bottom = 400.0
 texture = ExtResource( 9 )
 patch_margin_left = 100
@@ -1052,6 +1088,7 @@ margin_right = 800.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 800, 600 )
 script = ExtResource( 22 )
+show_achievement = false
 
 [node name="background2" type="ColorRect" parent="career_screen"]
 margin_right = 800.0
@@ -1359,6 +1396,47 @@ custom_styles/pressed = SubResource( 18 )
 custom_styles/focus = SubResource( 19 )
 custom_styles/normal = SubResource( 20 )
 
+[node name="tutorial" type="Control" parent="."]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="frame" type="NinePatchRect" parent="tutorial"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+texture = ExtResource( 9 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="content" type="Label" parent="tutorial/frame"]
+margin_left = 60.0
+margin_top = 68.0
+margin_right = 540.0
+margin_bottom = 328.0
+custom_fonts/font = SubResource( 53 )
+text = "Lorem Ipsum"
+align = 1
+autowrap = true
+
+[node name="ok" type="Button" parent="tutorial"]
+margin_left = 640.0
+margin_top = 320.0
+margin_right = 790.0
+margin_bottom = 470.0
+rect_min_size = Vector2( 150, 150 )
+custom_styles/hover = SubResource( 51 )
+custom_styles/pressed = SubResource( 51 )
+custom_styles/focus = SubResource( 52 )
+custom_styles/normal = SubResource( 52 )
+
 [connection signal="pressed" from="root_control/activity_space/scout_button" to="." method="_on_scout_button_pressed"]
 [connection signal="pressed" from="root_control/activity_space/paint_button" to="." method="_on_paint_button_pressed"]
 [connection signal="pressed" from="root_control/activity_space/statue_button" to="." method="_on_statue_button_pressed"]
@@ -1394,3 +1472,4 @@ custom_styles/normal = SubResource( 20 )
 [connection signal="pressed" from="heist_preparation/heist_cancel" to="." method="_on_heist_cancel_pressed"]
 [connection signal="pressed" from="heist_preparation/heist_ok" to="." method="_on_heist_ok_pressed"]
 [connection signal="pressed" from="career_screen/career_cancel" to="." method="_on_career_cancel_pressed"]
+[connection signal="pressed" from="tutorial/ok" to="." method="_on_ok_pressed"]

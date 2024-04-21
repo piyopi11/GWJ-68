@@ -26,8 +26,8 @@ var result_screen = false
 var result_complete = false
 
 const EMPTY = preload("res://ui/ui_frame.png")
-const ART = preload("res://ui/forge_painting.png")
-const STATUE = preload("res://ui/forge_statue.png")
+const ART = preload("res://ui/painting.png")
+const STATUE = preload("res://ui/statue.png")
 
 var tool_lock=0
 var tool_hold=0.0
@@ -40,6 +40,8 @@ var tool_duration = [0.0, 0.0, 0.0]
 var stealth = false
 export (NodePath) var cricket_path
 onready var cricket = get_node(cricket_path)
+
+var block = false
 
 var career_screen = false
 
@@ -70,9 +72,14 @@ func setup_ui() :
 			if (GameManager.tools_base[GameManager.tools[i]].cool != 0) :
 				$ui/tool_box.get_node("tool{0}".format([i+1])).max_value=GameManager.tools_base[GameManager.tools[i]].cool
 			$ui/tool_box.get_node("tool{0}".format([i+1])).get_node("icon").texture = load("res://tools/{0}.png".format([GameManager.tools_base[GameManager.tools[i]].icon]))
+		$ui/swipe_popup/interact_button/Label.text = OS.get_scancode_string(InputMap.get_action_list("ui_interact")[0].scancode)
+		$ui/door_popup/interact_button/Label.text = OS.get_scancode_string(InputMap.get_action_list("ui_interact")[0].scancode)
+		$ui/tool_box/tool1/number.text = OS.get_scancode_string(InputMap.get_action_list("ui_tool_1")[0].scancode)
+		$ui/tool_box/tool2/number.text = OS.get_scancode_string(InputMap.get_action_list("ui_tool_2")[0].scancode)
+		$ui/tool_box/tool3/number.text = OS.get_scancode_string(InputMap.get_action_list("ui_tool_3")[0].scancode)
 
 func _process(_delta) :
-	if result_screen == false :
+	if result_screen == false && block == false :
 		check_input(_delta)
 		if interacting && interaction_progress < 100.0:
 			perform_interaction(_delta)
@@ -84,6 +91,7 @@ func perform_interaction (delta) :
 	interaction_progress = min(interaction_progress + (interaction_step * delta), 100.0)
 	$ui/interaction_progress.value = interaction_progress
 	if interaction_progress >= 100.0 :
+		AudioManager.ok()
 		swiping_item.swap_data(GameManager.bag.pop_front())
 		GameManager.art_stolen += 1
 		can_interact = GameManager.bag.size() > 0
@@ -104,6 +112,8 @@ func _input(event) :
 		check_mouse_movement(event)
 	elif result_screen == true && result_complete == true :
 		if event is InputEventMouseButton || event is InputEventKey :
+			if AudioManager.is_not_playing("ok") :
+				AudioManager.ok()
 			if GameManager.art_stolen < GameManager.total_gallery_art :
 				GameManager.setup_day()
 				SceneManager.change_scene("res://home_menu.tscn")
@@ -111,13 +121,18 @@ func _input(event) :
 				SceneManager.change_scene("res://ending_scene.tscn")
 	elif GameManager.game_over == true && $ui/game_over_screen.visible == true :
 		if event is InputEventMouseButton || event is InputEventKey :
-			$ui/career_screen.setup_data()
-			$ui/career_screen.visible = true
-			$ui/game_over_screen.visible = false
-			yield(get_tree().create_timer(1.0), "timeout")
-			career_screen = true
+			if AudioManager.is_not_playing("ok") :
+				AudioManager.ok()
+			SceneManager.change_scene("res://ending_scene.tscn")
+#			$ui/career_screen.setup_data()
+#			$ui/career_screen.visible = true
+#			$ui/game_over_screen.visible = false
+#			yield(get_tree().create_timer(1.0), "timeout")
+#			career_screen = true
 	elif GameManager.game_over == true && career_screen == true && $ui/career_screen.visible == true :
 		if event is InputEventMouseButton || event is InputEventKey :
+			if AudioManager.is_not_playing("ok") :
+				AudioManager.ok()
 			SceneManager.change_scene("res://start_menu.tscn")
 
 func check_raycast() :
@@ -194,6 +209,7 @@ func check_input(delta) :
 					tool_lock = 1
 				tool_hold += delta
 				if tool_hold > 1.0 :
+					AudioManager.select()
 					process_hold(0)
 					tool_lock = 0
 					tool_hold = 0.0
@@ -202,6 +218,7 @@ func check_input(delta) :
 					tool_lock = 2
 				tool_hold += delta
 				if tool_hold > 1.0 :
+					AudioManager.select()
 					process_hold(1)
 					tool_lock = 0
 					tool_hold = 0.0
@@ -210,10 +227,12 @@ func check_input(delta) :
 					tool_lock = 3
 				tool_hold += delta
 				if tool_hold > 1.0 :
+					AudioManager.select()
 					process_hold(2)
 					tool_lock = 0
 					tool_hold = 0.0
 			elif Input.is_action_just_released("ui_tool_1") && mode =="heist" && tool_lock == 1 && active_tool[0] == false:
+				AudioManager.select()
 				if tool_hold >= 0.3 :
 					process_hold(0)
 				else :
@@ -221,6 +240,7 @@ func check_input(delta) :
 				tool_lock = 0
 				tool_hold = 0.0
 			elif Input.is_action_just_released("ui_tool_2") && mode =="heist" && tool_lock == 2 && active_tool[1] == false :
+				AudioManager.select()
 				if tool_hold >= 0.3 :
 					process_hold(1)
 				else :
@@ -228,6 +248,7 @@ func check_input(delta) :
 				tool_lock = 0
 				tool_hold = 0.0
 			elif Input.is_action_just_released("ui_tool_3") && mode =="heist" && tool_lock == 3 && active_tool[0] == false :
+				AudioManager.select()
 				if tool_hold >= 0.3 :
 					process_hold(2)
 				else :
@@ -236,6 +257,8 @@ func check_input(delta) :
 				tool_hold = 0.0
 		if Input.is_action_pressed("ui_interact") && mode == "heist" && interact_node != null:
 			if interact_node.is_in_group("exit") :
+				if AudioManager.is_not_playing("ok") :
+					AudioManager.ok()
 				end_stage()
 				return false
 			elif interact_node.is_in_group("swipable") && can_interact == true && interact_node.forged == false :
@@ -249,6 +272,9 @@ func check_input(delta) :
 					elif interact_node.is_in_group("exit") :
 						$ui/door_popup.visible = false
 					$ui/interaction_progress.visible = true
+				else :
+					if AudioManager.is_not_playing("cancel") :
+						AudioManager.cancel()
 		elif Input.is_action_just_released("ui_interact") && interacting == true :
 			$ui/interaction_progress.visible = false
 			if interact_node.is_in_group("swipable") && interact_node.forged == false :
@@ -322,9 +348,8 @@ func process_hold (idx) :
 				if cricket.placed == true :
 					active_tool[idx]=true
 					cricket.activate()
-					tool_duration[idx] = 0.1
+					tool_duration[idx] = 15.0
 					tool_use[idx]-=1
-					print(tool_use[idx])
 			_ :
 				process_tap(idx)
 
@@ -368,7 +393,7 @@ func is_moving () -> bool :
 	return move_x != 0.0 || move_z != 0.0 && is_first_person != true
 
 func _physics_process(delta) :
-	if is_moving() :
+	if is_moving() && block == false  :
 		if $animation/animation.is_playing() == false :
 			$animation/animation.play("walking")
 		move_and_collide(Vector3(move_x * delta, 0.0, move_z * delta))
@@ -413,14 +438,11 @@ func _on_detection_body_exited(body):
 				$ui/info_box.visible = false
 			interact_node = null
 
-func interact_with_object () :
-	if interact_node != null && mode == "heist" :
-		pass
-
 func _on_text_decay_timeout():
 	$ui/chatter.visible = false
 
 func _on_back_button_pressed():
+	AudioManager.cancel()
 	GameManager.setup_day()
 	SceneManager.change_scene("res://home_menu.tscn")
 
@@ -457,6 +479,7 @@ func end_stage () :
 #	SceneManager.change_scene("res://home_menu.tscn")
 
 func trigger_game_over () :
+	AudioManager.alert()
 	GameManager.save_career_data({
 		"day": GameManager.day, 
 		"time": LevelManager.max_time - LevelManager.time, 

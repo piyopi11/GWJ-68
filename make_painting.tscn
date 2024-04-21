@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://make_painting.gd" type="Script" id=1]
 [ext_resource path="res://ui/ui_frame.png" type="Texture" id=2]
@@ -355,6 +355,23 @@ region_rect = Rect2( 0, 0, 300, 300 )
 texture = ExtResource( 4 )
 region_rect = Rect2( 0, 0, 300, 300 )
 
+[sub_resource type="DynamicFont" id=55]
+size = 36
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="StyleBoxTexture" id=56]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=57]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
 [node name="root" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -606,8 +623,50 @@ custom_styles/pressed = SubResource( 52 )
 custom_styles/focus = SubResource( 53 )
 custom_styles/normal = SubResource( 54 )
 
+[node name="tutorial" type="Control" parent="."]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="frame" type="NinePatchRect" parent="tutorial"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+texture = ExtResource( 2 )
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100
+
+[node name="content" type="Label" parent="tutorial/frame"]
+margin_left = 60.0
+margin_top = 68.0
+margin_right = 540.0
+margin_bottom = 328.0
+custom_fonts/font = SubResource( 55 )
+text = "Lorem Ipsum"
+align = 1
+autowrap = true
+
+[node name="ok" type="Button" parent="tutorial"]
+margin_left = 640.0
+margin_top = 320.0
+margin_right = 790.0
+margin_bottom = 470.0
+rect_min_size = Vector2( 150, 150 )
+custom_styles/hover = SubResource( 56 )
+custom_styles/pressed = SubResource( 56 )
+custom_styles/focus = SubResource( 57 )
+custom_styles/normal = SubResource( 57 )
+
 [connection signal="pressed" from="root/palette/mode" to="." method="_on_mode_pressed"]
 [connection signal="pressed" from="root/tools/save_button" to="." method="_on_save_button_pressed"]
 [connection signal="pressed" from="root/tools/cancel_button" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="root/save_dialog/save_ok" to="." method="_on_save_ok_pressed"]
 [connection signal="pressed" from="root/save_dialog/save_cancel" to="." method="_on_save_cancel_pressed"]
+[connection signal="pressed" from="tutorial/ok" to="." method="_on_ok_pressed"]

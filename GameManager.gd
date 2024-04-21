@@ -40,9 +40,9 @@ const tools_base = [
 	},
 	{
 		"name": "Noisy Cricket", 
-		"desc": "Press once to place a cricket on a spot. Hold and press to activate the cricket and alert all security guards to the cricket for 15 seconds. Can only be used once.", 
+		"desc": "Press once to place a cricket on a spot. Hold and press to activate the cricket and alert all security guards to the cricket for 15 seconds. 2 uses.", 
 		"usable": true, 
-		"limit": 1, 
+		"limit": 2, 
 		"cool": 0, 
 		"icon": "noisy_cricket", 
 		"unlocked": 0
@@ -81,7 +81,7 @@ var art_limit = 2
 var total_heist = 0
 
 var career_data = []
-var tool_used = [0, 0, 0, 0, 0, 0, 0, 0]
+var tool_used = [0, 0, 0, 0, 0, 0, 0]
 
 #gallery related
 var paintings = []
@@ -100,14 +100,23 @@ var threat_level = 0.0
 #career related
 var game_start = false
 var total_time = 0.0
+var bonus_triggered = 0
 
 var best_forgery = ""
 var best_forgery_score = 0.0
 
 var game_over = false
 
+#home, visit, heist, gadget, heist game, make painting, make statue, inventory
+var guide = [false, false, false, false, false, false, false, false]
+
 func _ready () :
-	new_game()
+	for k in Artwork.paintings.keys() :
+		var o = {"data": Artwork.paintings[k].duplicate(true), "sentiment": 1.0, "forged": false, "key": k}
+		paintings.append(o)
+	for k in Artwork.statues.keys() :
+		var o = {"data": Artwork.statues[k].duplicate(true), "sentiment": 1.0, "forged": false, "key": k}
+		statues.append(o)
 
 func _process (delta) :
 	if game_start :
@@ -121,6 +130,8 @@ func new_game () :
 	setup_data()
 
 func setup_data () :
+	bonus_triggered = 0
+	total_time = 0.0
 	game_over = false
 	score = 0
 	inventory = []
@@ -135,7 +146,7 @@ func setup_data () :
 	security_level = 1
 	day = 0
 	in_demand = []
-	threat_level = 0.0
+	threat_level = 1.0
 	total_heist = 0
 	career_data = []
 	best_forgery = ""
