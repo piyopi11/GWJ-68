@@ -27,6 +27,7 @@ const make_painting = [
 	"There are two modes you can choose, single mode will alow you to paint slowly and carefully. Continuous mode will allow you to paint quickly.",
 	"To change between the two modes, click on the button below the color choices.",
 	"Once you're done, click on the confirm button on top and give your new art piece a name to identify it.",
+	"If you've take a photo when you scout the gallery, you can view them by clicking on the view photo button",
 	"Try your best to replicate the artwork that is in the gallery or else your next heist will probably be more difficult than before!"
 ]
 
@@ -37,6 +38,7 @@ const make_statue = [
 	"You can only have 8 shapes in a statue. Once you have 8 shapes, you can't add more shapes.",
 	"You can also delete shapes that you have selected to create more room for other shapes.",
 	"Once you're done, you can click on the confirm button and give your new sculpture a name to identify it.",
+	"If you've take a photo when you scout the gallery, you can view them by clicking on the view photo button",
 	"Try your best to replicate the statues that is being shown in the gallery! If you replace the artwork with a statue that is not similar, your next heist will probably be more difficult!"
 ]
 
@@ -44,7 +46,8 @@ const visit = [
 	"Scout the gallery and take a look at different art pieces to pick the target of your heist.",
 	"Move up by pressing {0}. Move down by pressing {1}. Move left by pressing {2}. And move right by pressing {3}.",
 	"You can view the art pieces in a more detailed view by clicking on the {0} button to enter first person mode.",
-	"You can also check the public sentiments on the art pieces that is being shown.",
+	"In first person mode, you can press the {0} key to take a photo of what you are currently seeing",
+	"You can also check the public sentiments on the art pieces that are being shown.",
 	"If the public knew that the artwork has been replaced, the gallery will increase its security level and will make your heist more difficult.",
 	"So make sure you create the perfect forgery and plan your heist carefully!"
 ]
@@ -129,6 +132,8 @@ func get_text(type = "home") :
 					])
 				elif visit_idx == 2 :
 					s = s.format([OS.get_scancode_string(InputMap.get_action_list("ui_first_person")[0].scancode)])
+				elif visit_idx == 3 :
+					s = s.format([OS.get_scancode_string(InputMap.get_action_list("ui_interact")[0].scancode)])
 		"heist" :
 			if heist.size() > heist_idx :
 				s = heist[heist_idx]

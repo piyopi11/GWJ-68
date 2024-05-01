@@ -378,6 +378,7 @@ script = ExtResource( 1 )
 [node name="root" type="Control" parent="."]
 margin_right = 800.0
 margin_bottom = 600.0
+rect_pivot_offset = Vector2( -472, 40 )
 mouse_filter = 2
 
 [node name="background" type="ColorRect" parent="root"]
@@ -414,10 +415,11 @@ margin_bottom = 552.0
 mouse_filter = 2
 
 [node name="palette" type="Control" parent="root"]
-margin_left = 584.0
+margin_left = 600.0
 margin_top = 80.0
-margin_right = 784.0
+margin_right = 800.0
 margin_bottom = 560.0
+rect_scale = Vector2( 0.8, 0.8 )
 
 [node name="background" type="ColorRect" parent="root/palette"]
 visible = false
@@ -623,6 +625,49 @@ custom_styles/pressed = SubResource( 52 )
 custom_styles/focus = SubResource( 53 )
 custom_styles/normal = SubResource( 54 )
 
+[node name="reference" type="Button" parent="root"]
+margin_left = 624.0
+margin_top = 504.0
+margin_right = 739.0
+margin_bottom = 554.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_styles/hover = SubResource( 40 )
+custom_styles/pressed = SubResource( 40 )
+custom_styles/focus = SubResource( 39 )
+custom_styles/normal = SubResource( 39 )
+text = "View Photo"
+
+[node name="photo" type="Control" parent="."]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background" type="ColorRect" parent="photo"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.607843 )
+
+[node name="photo" type="TextureRect" parent="photo"]
+margin_left = 40.0
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 570.0
+expand = true
+
+[node name="photo_cancel" type="Button" parent="photo"]
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+rect_scale = Vector2( 0.8, 0.8 )
+custom_styles/hover = SubResource( 51 )
+custom_styles/pressed = SubResource( 52 )
+custom_styles/focus = SubResource( 53 )
+custom_styles/normal = SubResource( 54 )
+
 [node name="tutorial" type="Control" parent="."]
 visible = false
 margin_right = 800.0
@@ -669,4 +714,6 @@ custom_styles/normal = SubResource( 57 )
 [connection signal="pressed" from="root/tools/cancel_button" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="root/save_dialog/save_ok" to="." method="_on_save_ok_pressed"]
 [connection signal="pressed" from="root/save_dialog/save_cancel" to="." method="_on_save_cancel_pressed"]
+[connection signal="pressed" from="root/reference" to="." method="_on_reference_pressed"]
+[connection signal="pressed" from="photo/photo_cancel" to="." method="_on_photo_cancel_pressed"]
 [connection signal="pressed" from="tutorial/ok" to="." method="_on_ok_pressed"]

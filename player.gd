@@ -45,6 +45,8 @@ var block = false
 
 var career_screen = false
 
+var facing = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -56,11 +58,16 @@ func setup_ui() :
 		$ui/tool_box.visible = false
 		$ui/result_screen.visible = false
 		$ui/current_frame.visible = false
+		$"ui/camera instruction".visible = false
+		$ui/texture.visible = true
+		$"ui/camera instruction".text = "Press {0} to take a photo".format([OS.get_scancode_string(InputMap.get_action_list("ui_interact")[0].scancode)])
 	elif mode == "heist" :
 		$ui/time_counter.visible = true
 		$ui/back_button.visible = false
 		$ui/tool_box.visible = true
 		$ui/result_screen.visible = false
+		$"ui/camera instruction".visible = false
+		$ui/texture.visible = false
 		$ui/current_frame/name.text = GameManager.get_inventory(GameManager.bag[0]).name
 		if GameManager.get_inventory(GameManager.bag[0]).type == "painting" :
 			$ui/current_frame.texture = ART
@@ -173,9 +180,12 @@ func check_mouse_movement (event) :
 			if last_mouse_pos != s :
 				var m_x = -2.0 if last_mouse_pos.x < s.x else 2.0 if last_mouse_pos.x > s.x else 0.0
 				var m_y = -2.0 if last_mouse_pos.y < s.y else 2.0 if last_mouse_pos.y > s.y else 0.0
-				$fps_camera.rotate_x(deg2rad(m_y * 0.5) )
+#				$fps_camera.rotate_x(deg2rad(m_y * 0.5) )
+				$fps_camera.rotation.x = lerp_angle($fps_camera.rotation.x, $fps_camera.rotation.x + deg2rad(m_y), 0.7)
 				$fps_camera.rotation.x = clamp($fps_camera.rotation.x, deg2rad(0.0), deg2rad(45.0))
-				$fps_camera.rotate_y(deg2rad(m_x * 0.5) )
+#				rotate_y(deg2rad(m_x * 0.5) )
+				rotation.y = lerp_angle(rotation.y, rotation.y + deg2rad(m_x), 0.7)
+				rotation.z = 0.0
 				$fps_camera.rotation.z = 0.0
 
 func check_input(delta) :
@@ -188,18 +198,18 @@ func check_input(delta) :
 				sprint_modifier = 1.0
 			#movement block
 			if Input.is_action_pressed("ui_right") :
-				$fps_camera.rotation = Vector3(0.0, deg2rad(-90.0), 0.0)
+				facing = 1
 				move_x = speed * 1.0 * sprint_modifier
 			elif Input.is_action_pressed("ui_left") :
-				$fps_camera.rotation = Vector3(0.0, deg2rad(90.0), 0.0)
+				facing = 2
 				move_x = speed * -1.0 * sprint_modifier
 			else :
 				move_x = 0.0
 			if Input.is_action_pressed("ui_down") :
-				$fps_camera.rotation = Vector3(0.0, deg2rad(180.0), 0.0)
+				facing = 3
 				move_z = speed * 1.0 * sprint_modifier
 			elif Input.is_action_pressed("ui_up") :
-				$fps_camera.rotation = Vector3(0.0, 0.0, 0.0)
+				facing = 0
 				move_z = speed * -1.0 * sprint_modifier
 			else :
 				move_z = 0.0
@@ -286,6 +296,15 @@ func check_input(delta) :
 	if Input.is_action_just_pressed("ui_first_person") && changing_camera == false && interacting == false:
 		changing_camera = true
 		if $Camera.current == true :
+			match facing :
+				0 :
+					rotation.y = deg2rad(0.0)
+				1 : 
+					rotation.y = deg2rad(-90.0)
+				2 :
+					rotation.y = deg2rad(90.0)
+				3 :
+					rotation.y = deg2rad(180.0)
 			$Camera.current = false
 			$Camera/RayCast.enabled = false
 			$fps_camera.current = true
@@ -296,9 +315,13 @@ func check_input(delta) :
 			$ui/swipe_popup.visible = false
 			if mode == "visit" :
 				$ui/back_button.visible = false
+				$"ui/camera instruction".visible = true
 		else :
+			rotation.y = 0.0
+			$fps_camera.rotation = Vector3(0.0, 0.0, 0.0)
 			if mode == "visit" :
 				$ui/back_button.visible = true
+				$"ui/camera instruction".visible = false
 			$ui/info_box.visible = false
 			$fps_camera.current = false
 			$fps_camera/ray.enabled = false
@@ -307,6 +330,18 @@ func check_input(delta) :
 			is_first_person = false
 			changing_camera = false
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if Input.is_action_just_pressed("ui_interact") && is_first_person == true && interacting == false && mode == "visit" :
+		AudioManager.ok()
+		if $ui/texture.texture != null :
+			$ui/texture.texture = null
+		$ui.visible = false
+		yield(get_tree(), "idle_frame")
+		var t : Image = get_viewport().get_texture().get_data()
+		t.flip_y()
+		GameManager.photo = ImageTexture.new()
+		GameManager.photo.create_from_image(t)
+		$ui/texture.texture = GameManager.photo
+		$ui.visible = true
 
 func process_tap (idx) :
 	if active_tool[idx]==false && tool_cooldown[idx]==0.0 && tool_use[idx] != 0:

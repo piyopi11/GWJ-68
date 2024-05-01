@@ -21,6 +21,8 @@ func _ready():
 	AudioManager.play_bgm()
 	setup_canvas()
 	setup_palette()
+	if GameManager.photo != null :
+		$photo/photo.texture = GameManager.photo
 	if GameManager.guide[5] == false :
 		tut = "make_painting"
 		show_guide()
@@ -126,3 +128,11 @@ func _on_save_ok_pressed():
 func _on_save_cancel_pressed():
 	AudioManager.cancel()
 	$root/save_dialog.visible = false
+
+func _on_reference_pressed():
+	AudioManager.ok()
+	$photo.visible = true
+
+func _on_photo_cancel_pressed():
+	AudioManager.cancel()
+	$photo.visible = false

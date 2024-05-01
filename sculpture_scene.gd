@@ -18,6 +18,8 @@ func _ready():
 	AudioManager.play_bgm()
 	statue_name = "New Statue"
 	load_data()
+	if GameManager.photo != null :
+		$ui/photo/photo.texture = GameManager.photo
 	if GameManager.guide[6] == false :
 		tut = "make_statue"
 		show_guide ()
@@ -213,3 +215,11 @@ func _on_save_ok_pressed():
 func _on_save_cancel_pressed():
 	AudioManager.cancel()
 	$ui/root/save_dialog.visible = false
+
+func _on_reference_pressed():
+	AudioManager.ok()
+	$ui/photo.visible = true
+
+func _on_photo_cancel_pressed():
+	AudioManager.cancel()
+	$ui/photo.visible = false

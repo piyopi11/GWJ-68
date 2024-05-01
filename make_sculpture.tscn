@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://prototype_texture.png" type="Texture" id=1]
 [ext_resource path="res://sculpture_scene.gd" type="Script" id=2]
@@ -222,6 +222,41 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 18 )
 
+[sub_resource type="StyleBoxTexture" id=52]
+texture = ExtResource( 16 )
+region_rect = Rect2( 0, 0, 300, 300 )
+expand_margin_left = 50.0
+expand_margin_right = 50.0
+expand_margin_top = 50.0
+expand_margin_bottom = 50.0
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=53]
+texture = ExtResource( 16 )
+region_rect = Rect2( 0, 0, 300, 300 )
+expand_margin_left = 50.0
+expand_margin_right = 50.0
+expand_margin_top = 50.0
+expand_margin_bottom = 50.0
+
+[sub_resource type="StyleBoxTexture" id=54]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=55]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+modulate_color = Color( 1, 0.984314, 0.870588, 1 )
+
+[sub_resource type="StyleBoxTexture" id=56]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
+[sub_resource type="StyleBoxTexture" id=57]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 300, 300 )
+
 [sub_resource type="DynamicFont" id=49]
 size = 36
 outline_size = 5
@@ -258,6 +293,7 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 6, 7 )
 [node name="root" type="Control" parent="ui"]
 margin_right = 800.0
 margin_bottom = 600.0
+rect_pivot_offset = Vector2( -264, 136 )
 
 [node name="frame2" type="NinePatchRect" parent="ui/root"]
 margin_right = 800.0
@@ -566,6 +602,49 @@ custom_fonts/font = SubResource( 45 )
 text = "0"
 align = 1
 
+[node name="reference" type="Button" parent="ui/root"]
+margin_left = 24.0
+margin_top = 144.0
+margin_right = 139.0
+margin_bottom = 194.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 0, 0, 0, 1 )
+custom_styles/hover = SubResource( 52 )
+custom_styles/pressed = SubResource( 52 )
+custom_styles/focus = SubResource( 53 )
+custom_styles/normal = SubResource( 53 )
+text = "View Photo"
+
+[node name="photo" type="Control" parent="ui"]
+visible = false
+margin_right = 800.0
+margin_bottom = 600.0
+
+[node name="background" type="ColorRect" parent="ui/photo"]
+margin_right = 800.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.607843 )
+
+[node name="photo" type="TextureRect" parent="ui/photo"]
+margin_left = 40.0
+margin_top = 30.0
+margin_right = 760.0
+margin_bottom = 570.0
+expand = true
+
+[node name="photo_cancel" type="Button" parent="ui/photo"]
+margin_right = 150.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 150, 150 )
+rect_scale = Vector2( 0.8, 0.8 )
+custom_styles/hover = SubResource( 54 )
+custom_styles/pressed = SubResource( 55 )
+custom_styles/focus = SubResource( 56 )
+custom_styles/normal = SubResource( 57 )
+
 [node name="tutorial" type="Control" parent="ui"]
 visible = false
 margin_right = 800.0
@@ -630,4 +709,6 @@ directional_shadow_mode = 0
 [connection signal="pressed" from="ui/root/save_tool/cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="ui/root/save_dialog/save_ok" to="." method="_on_save_ok_pressed"]
 [connection signal="pressed" from="ui/root/save_dialog/save_cancel" to="." method="_on_save_cancel_pressed"]
+[connection signal="pressed" from="ui/root/reference" to="." method="_on_reference_pressed"]
+[connection signal="pressed" from="ui/photo/photo_cancel" to="." method="_on_photo_cancel_pressed"]
 [connection signal="pressed" from="ui/tutorial/ok" to="." method="_on_ok_pressed"]

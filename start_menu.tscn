@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://ui/cancel.png" type="Texture" id=1]
 [ext_resource path="res://GochiHand-Regular.ttf" type="DynamicFontData" id=2]
@@ -246,6 +246,13 @@ viewport_path = NodePath("credits3/painting")
 [sub_resource type="SpatialMaterial" id=94]
 resource_local_to_scene = true
 albedo_texture = SubResource( 93 )
+
+[sub_resource type="ViewportTexture" id=95]
+viewport_path = NodePath("credits4/painting")
+
+[sub_resource type="SpatialMaterial" id=96]
+resource_local_to_scene = true
+albedo_texture = SubResource( 95 )
 
 [sub_resource type="Curve3D" id=44]
 _data = {
@@ -1045,6 +1052,7 @@ valign = 1
 autowrap = true
 
 [node name="show_guide" type="Control" parent="canvas/root"]
+visible = false
 margin_right = 800.0
 margin_bottom = 600.0
 
@@ -1383,7 +1391,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 84 )
 
 [node name="credits2" type="StaticBody" parent="." groups=["interactable", "painting", "swipable"]]
-transform = Transform( -2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 16, 1.6, 15.5 )
+transform = Transform( -2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 16, 1.6, 15.2797 )
 collision_layer = 2
 collision_mask = 2
 
@@ -1430,7 +1438,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 84 )
 
 [node name="credits3" type="StaticBody" parent="." groups=["interactable", "painting", "swipable"]]
-transform = Transform( -1.74846e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.74846e-08, 16, 3.3, 16.1 )
+transform = Transform( -1.74846e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.74846e-08, 16, 3.3, 15.8797 )
 collision_layer = 2
 collision_mask = 2
 
@@ -1473,6 +1481,52 @@ material_override = SubResource( 94 )
 mesh = SubResource( 87 )
 
 [node name="collision" type="CollisionShape" parent="credits3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+shape = SubResource( 84 )
+
+[node name="credits4" type="StaticBody" parent="." groups=["interactable", "painting", "swipable"]]
+transform = Transform( -1.74846e-08, 0, -0.4, 0, 0.4, 0, 0.4, 0, -1.74846e-08, 16, 1.86579, 16.8797 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="painting" type="Viewport" parent="credits4"]
+size = Vector2( 256, 256 )
+hdr = false
+disable_3d = true
+usage = 0
+
+[node name="canvas" type="Control" parent="credits4/painting"]
+margin_top = 256.0
+margin_right = 256.0
+margin_bottom = 512.0
+
+[node name="background" type="ColorRect" parent="credits4/painting/canvas"]
+margin_right = 256.0
+margin_bottom = 256.0
+rect_scale = Vector2( 1, -1 )
+color = Color( 0.627451, 0.643137, 0.113725, 1 )
+
+[node name="music" type="Label" parent="credits4/painting/canvas"]
+margin_right = 256.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 256, 256 )
+rect_scale = Vector2( 1, -1 )
+custom_fonts/font = SubResource( 92 )
+text = "Font used is Gochi Hands (fonts.google.com)"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="outer_frame" type="MeshInstance" parent="credits4"]
+transform = Transform( 1.1, 0, 0, 0, -4.80825e-08, -1.1, 0, 1, -4.37114e-08, 0, 1, 0 )
+mesh = SubResource( 85 )
+
+[node name="frame" type="MeshInstance" parent="credits4"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1, 0.1 )
+material_override = SubResource( 96 )
+mesh = SubResource( 87 )
+
+[node name="collision" type="CollisionShape" parent="credits4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 shape = SubResource( 84 )
 
@@ -1540,7 +1594,6 @@ speed = 5.0
 transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -4, 0, 4 )
 
 [node name="flashlight" parent="cop" index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2173, 1.47009 )
 light_energy = 0.0
 
 [node name="Path5" type="Path" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://ui/ui_frame.png" type="Texture" id=2]
@@ -158,6 +158,12 @@ font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=26]
 size = 128
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=29]
+size = 36
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
 [node name="pawn" type="KinematicBody" groups=["player"]]
@@ -682,6 +688,18 @@ text = "Game Over"
 
 [node name="career_screen" parent="ui" instance=ExtResource( 7 )]
 visible = false
+
+[node name="texture" type="TextureRect" parent="ui"]
+margin_top = 450.0
+margin_right = 200.0
+margin_bottom = 600.0
+expand = true
+
+[node name="camera instruction" type="Label" parent="ui"]
+margin_right = 800.0
+margin_bottom = 29.0
+custom_fonts/font = SubResource( 29 )
+align = 1
 
 [node name="fps_camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0 )

@@ -107,6 +107,8 @@ var best_forgery_score = 0.0
 
 var game_over = false
 
+var photo = null
+
 #home, visit, heist, gadget, heist game, make painting, make statue, inventory
 var guide = [false, false, false, false, false, false, false, false]
 
@@ -151,6 +153,7 @@ func setup_data () :
 	career_data = []
 	best_forgery = ""
 	best_forgery_score = 0.0
+	photo = null
 
 	for k in Artwork.paintings.keys() :
 		var o = {"data": Artwork.paintings[k].duplicate(true), "sentiment": 1.0, "forged": false, "key": k}
