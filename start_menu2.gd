@@ -37,107 +37,111 @@ func _input (event) :
 				rebind_key(event.scancode)
 
 func rebind_key (scancode) :
-	AudioManager.ok()
-	var e = false
-	var t = 0
-	#check if key exist
-	if InputMap.get_action_list("ui_interact")[0].scancode == scancode && key_rebind != 0 :
-		e = true
-		t = 0
-	elif InputMap.get_action_list("ui_first_person")[0].scancode == scancode && key_rebind != 1 :
-		e = true
-		t = 1
-	elif InputMap.get_action_list("ui_sprinting")[0].scancode == scancode && key_rebind != 2 :
-		e = true
-		t = 2
-	elif InputMap.get_action_list("ui_up")[0].scancode == scancode && key_rebind != 3 :
-		e = true
-		t = 3
-	elif InputMap.get_action_list("ui_down")[0].scancode == scancode && key_rebind != 4 :
-		e = true
-		t = 4
-	elif InputMap.get_action_list("ui_left")[0].scancode == scancode && key_rebind != 5 :
-		e = true
-		t = 5
-	elif InputMap.get_action_list("ui_right")[0].scancode == scancode && key_rebind != 6 :
-		e = true
-		t = 6
-	elif InputMap.get_action_list("ui_tool_1")[0].scancode == scancode && key_rebind != 7 :
-		e = true
-		t = 7
-	elif InputMap.get_action_list("ui_tool_2")[0].scancode == scancode && key_rebind != 8 :
-		e = true
-		t = 8
-	elif InputMap.get_action_list("ui_tool_3")[0].scancode == scancode && key_rebind != 9 :
-		e = true
-		t = 9
-	#rebind key
-	var temp = 0
-	if key_rebind == 0 :
+	if InputMap.get_action_list("ui_switch")[0].scancode != scancode :
+		AudioManager.ok()
+		var e = false
+		var t = 0
+		#check if key exist
+		if InputMap.get_action_list("ui_interact")[0].scancode == scancode && key_rebind != 0 :
+			e = true
+			t = 0
+		elif InputMap.get_action_list("ui_first_person")[0].scancode == scancode && key_rebind != 1 :
+			e = true
+			t = 1
+		elif InputMap.get_action_list("ui_sprinting")[0].scancode == scancode && key_rebind != 2 :
+			e = true
+			t = 2
+		elif InputMap.get_action_list("ui_up")[0].scancode == scancode && key_rebind != 3 :
+			e = true
+			t = 3
+		elif InputMap.get_action_list("ui_down")[0].scancode == scancode && key_rebind != 4 :
+			e = true
+			t = 4
+		elif InputMap.get_action_list("ui_left")[0].scancode == scancode && key_rebind != 5 :
+			e = true
+			t = 5
+		elif InputMap.get_action_list("ui_right")[0].scancode == scancode && key_rebind != 6 :
+			e = true
+			t = 6
+		elif InputMap.get_action_list("ui_tool_1")[0].scancode == scancode && key_rebind != 7 :
+			e = true
+			t = 7
+		elif InputMap.get_action_list("ui_tool_2")[0].scancode == scancode && key_rebind != 8 :
+			e = true
+			t = 8
+		elif InputMap.get_action_list("ui_tool_3")[0].scancode == scancode && key_rebind != 9 :
+			e = true
+			t = 9
+		#rebind key
+		var temp = 0
+		if key_rebind == 0 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_interact")[0].scancode
+			InputMap.get_action_list("ui_interact")[0].scancode = scancode
+		elif key_rebind == 1 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_first_person")[0].scancode
+			InputMap.get_action_list("ui_first_person")[0].scancode = scancode
+		elif key_rebind == 2 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_sprinting")[0].scancode
+			InputMap.get_action_list("ui_sprinting")[0].scancode = scancode
+		elif key_rebind == 3 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_up")[0].scancode
+			InputMap.get_action_list("ui_up")[0].scancode = scancode
+		elif key_rebind == 4 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_down")[0].scancode
+			InputMap.get_action_list("ui_down")[0].scancode = scancode
+		elif key_rebind == 5 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_left")[0].scancode
+			InputMap.get_action_list("ui_left")[0].scancode = scancode
+		elif key_rebind == 6 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_right")[0].scancode
+			InputMap.get_action_list("ui_right")[0].scancode = scancode
+		elif key_rebind == 7 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_tool_1")[0].scancode
+			InputMap.get_action_list("ui_tool_1")[0].scancode = scancode
+		elif key_rebind == 8 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_tool_2")[0].scancode
+			InputMap.get_action_list("ui_tool_2")[0].scancode = scancode
+		elif key_rebind == 9 :
+			if e == true :
+				temp = InputMap.get_action_list("ui_tool_3")[0].scancode
+			InputMap.get_action_list("ui_tool_3")[0].scancode = scancode
+		#swap if necessary
 		if e == true :
-			temp = InputMap.get_action_list("ui_interact")[0].scancode
-		InputMap.get_action_list("ui_interact")[0].scancode = scancode
-	elif key_rebind == 1 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_first_person")[0].scancode
-		InputMap.get_action_list("ui_first_person")[0].scancode = scancode
-	elif key_rebind == 2 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_sprinting")[0].scancode
-		InputMap.get_action_list("ui_sprinting")[0].scancode = scancode
-	elif key_rebind == 3 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_up")[0].scancode
-		InputMap.get_action_list("ui_up")[0].scancode = scancode
-	elif key_rebind == 4 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_down")[0].scancode
-		InputMap.get_action_list("ui_down")[0].scancode = scancode
-	elif key_rebind == 5 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_left")[0].scancode
-		InputMap.get_action_list("ui_left")[0].scancode = scancode
-	elif key_rebind == 6 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_right")[0].scancode
-		InputMap.get_action_list("ui_right")[0].scancode = scancode
-	elif key_rebind == 7 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_tool_1")[0].scancode
-		InputMap.get_action_list("ui_tool_1")[0].scancode = scancode
-	elif key_rebind == 8 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_tool_2")[0].scancode
-		InputMap.get_action_list("ui_tool_2")[0].scancode = scancode
-	elif key_rebind == 9 :
-		if e == true :
-			temp = InputMap.get_action_list("ui_tool_3")[0].scancode
-		InputMap.get_action_list("ui_tool_3")[0].scancode = scancode
-	#swap if necessary
-	if e == true :
-		if t == 0 :
-			InputMap.get_action_list("ui_interact")[0].scancode = temp
-		elif t == 1 :
-			InputMap.get_action_list("ui_first_person")[0].scancode = temp
-		elif t == 2 :
-			InputMap.get_action_list("ui_sprinting")[0].scancode = temp
-		elif t == 3 :
-			InputMap.get_action_list("ui_up")[0].scancode = temp
-		elif t == 4 :
-			InputMap.get_action_list("ui_down")[0].scancode = temp
-		elif t == 5 :
-			InputMap.get_action_list("ui_left")[0].scancode = temp
-		elif t == 6 :
-			InputMap.get_action_list("ui_right")[0].scancode = temp
-		elif t == 7 :
-			InputMap.get_action_list("ui_tool_1")[0].scancode = temp
-		elif t == 8 :
-			InputMap.get_action_list("ui_tool_2")[0].scancode = temp
-		elif t == 9 :
-			InputMap.get_action_list("ui_tool_3")[0].scancode = temp
-	#redraw input
-	setup_input()
-	$canvas/root/settings/listener_box.visible = false
+			if t == 0 :
+				InputMap.get_action_list("ui_interact")[0].scancode = temp
+			elif t == 1 :
+				InputMap.get_action_list("ui_first_person")[0].scancode = temp
+			elif t == 2 :
+				InputMap.get_action_list("ui_sprinting")[0].scancode = temp
+			elif t == 3 :
+				InputMap.get_action_list("ui_up")[0].scancode = temp
+			elif t == 4 :
+				InputMap.get_action_list("ui_down")[0].scancode = temp
+			elif t == 5 :
+				InputMap.get_action_list("ui_left")[0].scancode = temp
+			elif t == 6 :
+				InputMap.get_action_list("ui_right")[0].scancode = temp
+			elif t == 7 :
+				InputMap.get_action_list("ui_tool_1")[0].scancode = temp
+			elif t == 8 :
+				InputMap.get_action_list("ui_tool_2")[0].scancode = temp
+			elif t == 9 :
+				InputMap.get_action_list("ui_tool_3")[0].scancode = temp
+		#redraw input
+		setup_input()
+		$canvas/root/settings/listener_box.visible = false
+	else :
+		AudioManager.cancel()
+		listen_rebind = true
 
 func setup_input () :
 	$canvas/root/settings/frame/rebind_key/button_1.text = OS.get_scancode_string(InputMap.get_action_list("ui_interact")[0].scancode)

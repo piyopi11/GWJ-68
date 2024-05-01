@@ -443,6 +443,15 @@ custom_fonts/font = SubResource( 28 )
 text = "Current"
 align = 1
 
+[node name="title2" type="Label" parent="ui/current_frame"]
+margin_left = 48.0
+margin_top = 24.0
+margin_right = 198.0
+margin_bottom = 53.0
+custom_fonts/font = SubResource( 28 )
+text = "tab"
+align = 1
+
 [node name="name" type="Label" parent="ui/current_frame"]
 margin_top = 96.0
 margin_right = 150.0

@@ -265,6 +265,19 @@ func check_input(delta) :
 					process_tap(2)
 				tool_lock = 0
 				tool_hold = 0.0
+			if Input.is_action_just_pressed("ui_switch") && mode == "heist" :
+				if GameManager.bag.size() > 1 :
+					AudioManager.ok()
+					var temp = GameManager.bag[0]
+					GameManager.bag[0] = GameManager.bag[1]
+					GameManager.bag[1] = temp
+					$ui/current_frame/name.text = GameManager.get_inventory(GameManager.bag[0]).name
+					if GameManager.get_inventory(GameManager.bag[0]).type == "painting" :
+						$ui/current_frame.texture = ART
+					elif  GameManager.get_inventory(GameManager.bag[0]).type == "statue" :
+						$ui/current_frame.texture = STATUE
+				else :
+					AudioManager.cancel()
 		if Input.is_action_pressed("ui_interact") && mode == "heist" && interact_node != null:
 			if interact_node.is_in_group("exit") :
 				if AudioManager.is_not_playing("ok") :

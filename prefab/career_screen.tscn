@@ -391,7 +391,7 @@ margin_right = 700.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 400, 0 )
 custom_fonts/font = SubResource( 43 )
-text = "Not Billy Mitchell"
+text = "Speed Demon"
 
 [node name="desc" type="Label" parent="scroll2/rows/speed_achieve2"]
 margin_top = 58.0
@@ -688,7 +688,7 @@ margin_right = 700.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 400, 0 )
 custom_fonts/font = SubResource( 43 )
-text = "Don't Point That At Me!"
+text = "Cricket Concert"
 
 [node name="desc" type="Label" parent="scroll2/rows/tool_achieve6"]
 margin_top = 58.0
@@ -787,7 +787,7 @@ margin_right = 700.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 400, 0 )
 custom_fonts/font = SubResource( 43 )
-text = "Perhaps Picasso?"
+text = "Art Student"
 
 [node name="desc" type="Label" parent="scroll2/rows/forgery_achieve"]
 margin_top = 58.0
@@ -820,7 +820,7 @@ margin_right = 700.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 400, 0 )
 custom_fonts/font = SubResource( 43 )
-text = "Like Mike"
+text = "Perfectionist"
 
 [node name="desc" type="Label" parent="scroll2/rows/forgery_achieve2"]
 margin_top = 58.0
